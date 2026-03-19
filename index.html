@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haandi Shaandi | Uniting the Flavours of Bharat</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="Haandi-Shaandi-logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="haandi-shaandi-logo.png">
 <link rel="apple-touch-icon" href="Haandi-Shaandi-logo.png">
     
     <!-- Google Fonts -->
@@ -121,6 +121,29 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+.option-btn {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: rgba(255,255,255,0.08);
+    color: #F4EAD8;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
+}
+
+.option-btn:hover {
+    background: #D4581C;
+    color: white;
+}
+
+.active-btn {
+    background: linear-gradient(135deg, #B83A0D, #D4581C);
+    color: white;
+    box-shadow: 0 4px 12px rgba(212,88,28,0.4);
+}
+
+
+
     </style>
 </head>
 <body class="font-body selection:bg-terracotta selection:text-cream">
@@ -171,6 +194,10 @@
             <h1 class="reveal-up font-heading text-5xl md:text-7xl font-bold text-cream mb-6 leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
                 Uniting the Flavours of <span class="text-orange drop-shadow-[0_4px_15px_rgba(212,88,28,0.6)]">Bharat</span>
             </h1>
+        <h2 class="reveal-up delay-100 text-xl md:text-3xl font-semibold text-orange/80 mb-6 tracking-wide">
+    Authentic Biriyani & BBQs
+</h2>
+
             <p class="reveal-up delay-200 text-lg md:text-2xl text-cream/90 mb-10 max-w-2xl mx-auto">
                 Authentic dum biryanis inspired by regional Indian traditions, served hot in traditional clay haandi pots.
             </p>
@@ -197,8 +224,8 @@
                 </div>
 
                 <div class="md:w-1/2 text-center md:text-left reveal-right">
-                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-terracotta mb-6">The Haandi Experience</h2>
-                    <p class="text-xl text-dark font-medium mb-6 italic">"Slow cooked dum biryani sealed with tradition."</p>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-terracotta mb-6">Experience the Haandi Culture</h2>
+                    <p class="text-xl text-dark font-medium mb-6 italic">"Slow cooked - biriyanis & India’s Favourite Bbqs"</p>
                     <p class="text-dark/80 leading-relaxed mb-8">Every biryani at Haandi Shaandi is cooked and served in a traditional unglazed clay pot. The porous nature of the clay allows heat and moisture to circulate, infusing the meat and rice with an earthy aroma that metal simply cannot replicate. Sealed with dough to trap the steam (dum), the flavors are locked inside until the moment it reaches your table.</p>
                     <ul class="space-y-4">
                         <li class="flex items-center space-x-3 text-terracotta font-medium justify-center md:justify-start"><i data-lucide="check-circle-2" class="w-5 h-5"></i><span>Authentic earthy flavor</span></li>
@@ -214,7 +241,7 @@
     <section class="py-24 bg-dark text-cream overflow-hidden relative">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-16 reveal-up">
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-orange mb-6">Biryani Across Bharat</h2>
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-orange mb-6">Biriyani & BBQ’s across Bharat</h2>
                 <p class="text-lg text-cream/80 leading-relaxed">From royal kitchens to street-side legends — every region of India has its own biryani story. Haandi Shaandi brings these diverse, authentic flavors together under one roof.</p>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto" id="regions-grid"></div>
@@ -225,32 +252,61 @@
         </svg>
     </section>
 
-    <!-- SERVING SIZES (With uploaded mitti haandi images & hot smoke) -->
+    <!-- SERVING SIZES (With uploaded mitti haandi images & hot smoke) 
     <section class="py-24 bg-cream">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 reveal-up">
                 <h2 class="font-heading text-4xl md:text-5xl font-bold text-terracotta mb-4">Choose Your Haandi</h2>
-                <p class="text-lg text-dark/70">Perfect portions for every appetite.</p>
+                <p class="text-lg text-dark/70">Perfect portions for every appetite.</p> -->
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto" id="sizes-grid"></div>
         </div>
     </section>
 
     <!-- MENU -->
-    <section id="menu" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal-up">
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-terracotta mb-4">Our Menu</h2>
-                <p class="text-lg text-dark/70">A curated selection of India's finest regional flavors.</p>
-            </div>
-            <div class="flex flex-wrap justify-center gap-4 mb-12 reveal-up" id="menu-tabs">
-                <button onclick="filterMenu('Chicken')" id="tab-Chicken" class="menu-tab px-8 py-3 rounded-full font-heading text-lg font-semibold transition-all bg-terracotta text-cream shadow-lg scale-105">Chicken</button>
-                <button onclick="filterMenu('Veg')" id="tab-Veg" class="menu-tab px-8 py-3 rounded-full font-heading text-lg font-semibold transition-all bg-cream text-dark hover:bg-orange hover:text-cream">Veg</button>
-                <button onclick="filterMenu('Curries')" id="tab-Curries" class="menu-tab px-8 py-3 rounded-full font-heading text-lg font-semibold transition-all bg-cream text-dark hover:bg-orange hover:text-cream">Curries</button>
-            </div>
-            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto reveal-up" id="menu-grid" style="transition: opacity 0.4s;"></div>
+   <section id="menu" class="py-24 bg-gradient-to-b from-white to-cream/40">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <!-- HEADER -->
+        <div class="text-center mb-16 reveal-up">
+            <h2 class="font-heading text-4xl md:text-5xl font-bold text-terracotta mb-4">
+                Our Menu
+            </h2>
+            <p class="text-lg text-dark/70">
+                A curated selection of India's finest regional flavors.
+            </p>
         </div>
-    </section>
+
+        <!-- TABS -->
+        <div class="flex justify-center mb-14 reveal-up">
+            <div class="bg-cream p-2 rounded-full shadow-inner flex gap-2">
+
+                <button onclick="filterMenu('BBQs')" id="tab-BBQs"
+                    class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibold transition-all bg-terracotta text-cream shadow-md scale-105">
+                    BBQs
+                </button>
+
+                <button onclick="filterMenu('Haandi Biryani')" id="tab-Haandi"
+                    class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibold transition-all text-dark hover:bg-orange hover:text-cream">
+                    Haandi Biryani
+                </button>
+
+                <button onclick="filterMenu('Curries')" id="tab-Curries"
+                    class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibold transition-all text-dark hover:bg-orange hover:text-cream">
+                    Curries
+                </button>
+
+            </div>
+        </div>
+
+        <!-- MENU GRID -->
+        <div id="menu-grid"
+            class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto reveal-up transition-all duration-300">
+        </div>
+
+
+    </div>
+</section>
 
     <!-- WAITLIST -->
     <section id="waitlist" class="py-24 bg-terracotta relative overflow-hidden">
@@ -358,7 +414,8 @@
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             <div class="col-span-1 md:col-span-1">
                 <h2 class="font-heading text-3xl font-bold text-orange mb-4">Haandi Shaandi</h2>
-                <p class="text-sm text-cream/70 mb-6 leading-relaxed">Uniting the Flavours of Bharat.<br/>Authentic regional dum biryanis served in traditional clay haandi pots.</p>
+                <p class="text-sm text-cream/70 mb-6 leading-relaxed">Uniting the Flavours of Bharat.<br/>
+                Authentic regional dum biryanis served in traditional clay haandi pots.</p>
             </div>
             <div>
                 <h4 class="font-heading text-xl font-semibold mb-6">Quick Links</h4>
@@ -424,28 +481,74 @@
     }
 }
         // --- DATA ---
-        const menuData = [
-            { name: 'Kolkata Chicken Biryani', category: 'Chicken', desc: 'Aromatic basmati, subtle spices, tender chicken, and the signature potato.' },
-            { name: 'Hyderabadi Dum Chicken Biryani', category: 'Chicken', desc: 'Rich, spicy, and deeply flavorful, cooked in authentic kachchi dum style.' },
-            { name: 'Lucknowi Chicken Biryani', category: 'Chicken', desc: 'Mild, fragrant, and royal awadhi flavors with melt-in-the-mouth meat.' },
-            { name: 'Kerala Chicken Biryani', category: 'Chicken', desc: 'Made with short-grain kaima rice, enriched with cashew, raisins, and ghee.' },
-            { name: 'Dindigul Chicken Biryani', category: 'Chicken', desc: 'Seeraga samba rice with a distinct peppery, tangy southern flair.' },
-            { name: 'Donne Chicken Biryani', category: 'Chicken', desc: 'Karnataka style biryani cooked with fresh mint, coriander, and green chilies.' },
-            { name: 'Kashmiri Biryani', category: 'Chicken', desc: 'Infused with saffron, dry fruits, and a hint of sweetness.' },
-            { name: 'Malai Paneer Biryani', category: 'Veg', desc: 'Soft paneer cubes layered with creamy, fragrant basmati rice.' },
-            { name: 'Kathal Biryani', category: 'Veg', desc: 'Jackfruit marinated in robust spices, mimicking the texture of meat perfectly.' },
-            { name: 'Chicken Haandi Shaandi', category: 'Curries', desc: 'Our signature rich, slow-cooked chicken curry.' },
-            { name: 'Kathal Haandi Shaandi', category: 'Curries', desc: 'Spiced jackfruit simmered in a rich tomato-onion gravy.' },
-            { name: 'Dum-e-Fish Haandi Shaandi', category: 'Curries', desc: 'Tender fish pieces cooked gently in a mustard and yogurt blend.' }
-        ];
+      const menuData = [
+  {
+    name: 'Kolkata Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi8.jpg',
+    desc: 'Aromatic basmati, subtle spices, tender chicken, and the signature potato.'
+  },
+  {
+    name: 'Hyderabadi Dum Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'hero1.png',
+    desc: 'Rich, spicy, and deeply flavorful, cooked in authentic kacchi dum style.'
+  },
+  {
+    name: 'Lucknowi Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi2.webp',
+    desc: 'Mild, fragrant, and royal awadhi flavors with melt-in-the-mouth meat.'
+  },
+  {
+    name: 'Kerala Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi7.jpg',
+    desc: 'Made with short-grain kaima rice, enriched with cashew, raisins, and ghee.'
+  },
+  {
+    name: 'Din-di-Gul Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi6.png',
+    desc: 'Seeraga samba rice with a distinct peppery, tangy southern flair.'
+  },
+  {
+    name: 'Donne Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi5.avif',
+    desc: 'Karnataka style biryani cooked with fresh mint, coriander, and green chilies.'
+  },
+   {
+    name: 'Kashmiri Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi9.png',
+    desc: 'Infused with saffron, dry fruits, and a hint of sweetness.'
+  },
+  {
+    name: 'Chicken Haandi Shaandi',
+    category: 'Curries',
+    image: 'curry1.png',
+    desc: 'Our signature rich, slow-cooked chicken curry.'
+  },
+  {
+    name: 'Kathal Haandi Shaandi',
+    category: 'Curries',
+    image: 'curry2.png',
+    desc: 'Spiced jackfruit simmered in a rich tomato-onion gravy.'
+  },
+   {
+    name: 'Dum-e-Fish Haandi Shaandi',
+    category: 'Curries',
+    image: 'curry3.png',
+    desc: 'Tender fish pieces cooked gently in a mustard and yogurt blend.'
+  }
+
+];
 
         const regions = ['Kashmir', 'Lucknow', 'Assam', 'Kolkata', 'Hyderabad', 'Karnataka', 'Tamil Nadu', 'Kerala'];
 
-        const sizes = [
-            { name: 'Safar Haandi', weight: '350g', price: '₹199', serves: 'Serves 1', desc: 'Perfect for a solo journey of flavors.', image: 'haandi1.webp' },
-            { name: 'Mehfil Haandi', weight: '800g', price: '₹299', serves: 'Serves 2', desc: 'Share the joy with your favorite person.', image:'haandi2.webp' },
-            { name: 'Dawaati Haandi', weight: '1200g', price: '₹499', serves: 'Serves 3', desc: 'A feast meant for family and friends.', image: 'haandi3.jpg' }
-        ];
+        const sizes =[];
+        
 
         const socialImages = [
      "biryani1.jpg",
@@ -548,17 +651,101 @@
             setTimeout(() => {
                 menuGrid.innerHTML = '';
                 menuData.filter(item => item.category === category).forEach(item => {
-                    menuGrid.innerHTML += `
-                        <div class="flex flex-col border-b border-gray-200 pb-6 group text-left">
-                            <div class="flex justify-between items-start mb-2"><h3 class="font-heading text-xl font-bold text-dark group-hover:text-orange transition-colors">${item.name}</h3></div>
-                            <p class="text-dark/70 text-sm leading-relaxed pr-8">${item.desc}</p>
-                        </div>`;
+
+menuGrid.innerHTML += `
+<div class="relative group max-w-sm mx-auto mt-16 transition hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative h-52 overflow-hidden rounded-t-[90px]">
+        
+        <img src="${item.image || 'biryani1.jpg'}"
+             class="w-full h-full object-cover group-hover:scale-110 transition duration-700"/>
+
+        <!-- OVERLAY -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+
+        <!-- TITLE -->
+        <h3 class="absolute bottom-3 left-5 right-5 text-white font-heading text-lg font-bold">
+            ${item.name}
+        </h3>
+
+        <!-- PRICE (TOP RIGHT) -->
+        <div id="price-${item.name}" 
+            class="absolute top-4 right-4 bg-cream text-terracotta text-sm px-4 py-1 rounded-full font-bold shadow-lg border border-orange/20">
+            ₹199
+        </div>
+
+    </div>
+
+    <!-- BODY -->
+    <div class="relative bg-gradient-to-b from-[#4a2c1f] via-[#2A1B14] to-[#1c110c] 
+                rounded-b-[40px] px-5 pt-5 pb-6 shadow-xl border border-orange/10">
+
+        <!-- DESC -->
+        <p class="text-cream/70 text-sm text-center mb-5 leading-relaxed">
+            ${item.desc}
+        </p>
+
+        <!-- PROTEIN -->
+        <div class="mb-4">
+            <p class="text-[11px] text-cream/50 mb-2 text-center tracking-wide">
+                CHOOSE PROTEIN
+            </p>
+
+            <div class="flex justify-center gap-2">
+                <button onclick="selectOption(this, '${item.name}', 'protein', 'Chicken')" 
+                    class="option-btn active-btn">
+                    Chicken
+                </button>
+
+                <button onclick="selectOption(this, '${item.name}', 'protein', 'Mutton')" 
+                    class="option-btn">
+                    Mutton
+                </button>
+            </div>
+        </div>
+
+        <!-- HAANDI SIZE -->
+        <div>
+            <p class="text-[11px] text-cream/50 mb-2 text-center tracking-wide">
+                CHOOSE HAANDI
+            </p>
+
+            <div class="flex justify-center gap-2 flex-wrap">
+
+                <button onclick="selectOption(this, '${item.name}', 'size', 'Safar')" 
+                    class="option-btn active-btn">
+                    Safar <span class="text-[10px] opacity-70">• Small (1 Per)</span>
+                </button>
+
+                <button onclick="selectOption(this, '${item.name}', 'size', 'Mehfil')" 
+                    class="option-btn">
+                    Mehfil <span class="text-[10px] opacity-70">• Medium (2 Per)</span>
+                </button>
+
+                <button onclick="selectOption(this, '${item.name}', 'size', 'Dawaati')" 
+                    class="option-btn">
+                    Dawaati <span class="text-[10px] opacity-70">• Large (3 Per)</span>
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SHADOW -->
+    <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 
+                w-32 h-8 bg-black/20 blur-xl rounded-full"></div>
+
+</div>
+`;
+
                 });
                 menuGrid.style.opacity = '1';
                 refreshIcons();
             }, 200);
         }
-        filterMenu('Chicken');
+        filterMenu('Haandi Biryani');
 
         // Scroll Navbar
         window.addEventListener('scroll', () => {
