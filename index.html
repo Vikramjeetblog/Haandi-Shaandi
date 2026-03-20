@@ -482,29 +482,11 @@
 }
         // --- DATA ---
       const menuData = [
-  {
-    name: 'Kolkata Haandi Biryani',
-    category: 'Haandi Biryani',
-    image: 'haandi8.jpg',
-    desc: 'Aromatic basmati, subtle spices, tender chicken, and the signature potato.'
-  },
-  {
-    name: 'Hyderabadi Dum Haandi Biryani',
-    category: 'Haandi Biryani',
-    image: 'hero1.png',
-    desc: 'Rich, spicy, and deeply flavorful, cooked in authentic kacchi dum style.'
-  },
-  {
-    name: 'Lucknowi Haandi Biryani',
-    category: 'Haandi Biryani',
-    image: 'haandi2.webp',
-    desc: 'Mild, fragrant, and royal awadhi flavors with melt-in-the-mouth meat.'
-  },
-  {
-    name: 'Kerala Haandi Biryani',
-    category: 'Haandi Biryani',
-    image: 'haandi7.jpg',
-    desc: 'Made with short-grain kaima rice, enriched with cashew, raisins, and ghee.'
+         {
+    name: 'Dum-e-Fish Haandi Shaandi',
+    category: 'Curries',
+    image: 'curry3.png',
+    desc: 'Tender fish pieces cooked gently in a mustard and yogurt blend.'
   },
   {
     name: 'Din-di-Gul Haandi Biryani',
@@ -519,11 +501,49 @@
     desc: 'Karnataka style biryani cooked with fresh mint, coriander, and green chilies.'
   },
    {
+    name: 'Hyderabadi Dum Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'hero1.png',
+    desc: 'Rich, spicy, and deeply flavorful, cooked in authentic kacchi dum style.'
+  },
+   {
     name: 'Kashmiri Haandi Biryani',
     category: 'Haandi Biryani',
     image: 'haandi9.png',
     desc: 'Infused with saffron, dry fruits, and a hint of sweetness.'
   },
+  {
+  name: 'Kathal Haandi Biryani',
+  category: 'Haandi Biryani',
+  image: 'haandi11.avif',
+  desc: 'Jackfruit marinated in robust spices, mimicking the texture of meat perfectly.'
+},
+   {
+    name: 'Kerala Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi7.jpg',
+    desc: 'Made with short-grain kaima rice, enriched with cashew, raisins, and ghee.'
+  },
+  {
+    name: 'Kolkata Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi8.jpg',
+    desc: 'Aromatic basmati, subtle spices, tender chicken, and the signature potato.'
+  },
+ 
+  {
+    name: 'Lucknowi Haandi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi2.webp',
+    desc: 'Mild, fragrant, and royal awadhi flavors with melt-in-the-mouth meat.'
+  },
+  {
+  name: 'Malai Paneer Haandi Biryani',
+  category: 'Haandi Biryani',
+  image: 'haandi10.jpg',
+  desc: 'Soft paneer cubes layered with creamy, fragrant basmati rice.'
+},
+
   {
     name: 'Chicken Haandi Shaandi',
     category: 'Curries',
@@ -537,11 +557,54 @@
     desc: 'Spiced jackfruit simmered in a rich tomato-onion gravy.'
   },
    {
-    name: 'Dum-e-Fish Haandi Shaandi',
-    category: 'Curries',
-    image: 'curry3.png',
-    desc: 'Tender fish pieces cooked gently in a mustard and yogurt blend.'
+    name: 'Lobster BBQ (Chettinad)',
+    category: 'BBQs',
+    image: 'bbqs1.jpg',
+    desc: 'Fresh lobster grilled with bold Chettinad spices for a fiery coastal flavor.'
+  },
+  {
+    name: 'Lobster Haandi Curry',
+    category: 'BBQs',
+    image: 'bbqs2.jpg',
+    desc: 'Succulent lobster cooked in rich, aromatic haandi-style curry.'
+  },
+  {
+    name: 'Prawn BBQ / Haandi Curry',
+    category: 'BBQs',
+    image: 'bbqs3.avif',
+    desc: 'Juicy prawns grilled or cooked in flavorful haandi curry (+ ₹60 option).'
+  },
+  {
+    name: 'Chicken BBQ / Haandi Curry',
+    category: 'BBQs',
+    image: 'bbqs4.jpg',
+    desc: 'Tender chicken grilled to perfection or served in rich haandi curry (+ ₹60 option).'
+  },
+  {
+    name: 'Angel Fish BBQ',
+    category: 'BBQs',
+    image: 'bbqs5.webp',
+    desc: 'Delicate angel fish grilled with light spices for a smoky finish.'
+  },
+  {
+    name: 'Octopus BBQ',
+    category: 'BBQs',
+    image: 'bbqs6.jpg',
+    desc: 'Perfectly charred octopus with a smoky, slightly crispy texture.'
+  },
+  {
+    name: 'Squid BBQ',
+    category: 'BBQs',
+    image: 'bbqs7.jpg',
+    desc: 'Tender squid grilled with spices, offering a soft and juicy bite.'
+  },
+  {
+    name: 'Lamb Chop BBQ',
+    category: 'BBQs',
+    image: 'bbqs8.jpg',
+    desc: 'Juicy lamb chops grilled with aromatic spices and smoky richness.'
   }
+  
 
 ];
 
@@ -652,11 +715,12 @@
                 menuGrid.innerHTML = '';
                 menuData.filter(item => item.category === category).forEach(item => {
 
+
 menuGrid.innerHTML += `
 <div class="relative group max-w-sm mx-auto mt-16 transition hover:-translate-y-2 duration-300">
 
     <!-- IMAGE -->
-    <div class="relative h-52 overflow-hidden rounded-t-[90px]">
+    <div class="relative h-56 overflow-hidden rounded-t-[90px]">
         
         <img src="${item.image || 'biryani1.jpg'}"
              class="w-full h-full object-cover group-hover:scale-110 transition duration-700"/>
@@ -669,12 +733,10 @@ menuGrid.innerHTML += `
             ${item.name}
         </h3>
 
-        <!-- PRICE (TOP RIGHT) -->
-        <div id="price-${item.name}" 
-            class="absolute top-4 right-4 bg-cream text-terracotta text-sm px-4 py-1 rounded-full font-bold shadow-lg border border-orange/20">
+        <!-- PRICE -->
+        <div class="absolute top-4 right-4 bg-cream text-terracotta text-sm px-4 py-1 rounded-full font-bold shadow-lg border border-orange/20">
             ₹199
         </div>
-
     </div>
 
     <!-- BODY -->
@@ -686,50 +748,100 @@ menuGrid.innerHTML += `
             ${item.desc}
         </p>
 
-        <!-- PROTEIN -->
-        <div class="mb-4">
-            <p class="text-[11px] text-cream/50 mb-2 text-center tracking-wide">
-                CHOOSE PROTEIN
-            </p>
+        ${
+            item.category === 'Curries'
+            ? `
+            <!-- CURRY UI -->
+            <div class="text-center mt-4">
+                <span class="inline-block mb-3 text-xs px-3 py-1 rounded-full bg-orange/20 text-orange font-semibold">
+                    Chef Special
+                </span>
 
-            <div class="flex justify-center gap-2">
-                <button onclick="selectOption(this, '${item.name}', 'protein', 'Chicken')" 
-                    class="option-btn active-btn">
-                    Chicken
-                </button>
-
-                <button onclick="selectOption(this, '${item.name}', 'protein', 'Mutton')" 
-                    class="option-btn">
-                    Mutton
+                <button class="bg-orange text-white px-6 py-2 rounded-full text-sm font-semibold shadow hover:scale-105 transition">
+                    Try This Haandi
                 </button>
             </div>
-        </div>
+            `
+            : item.category === 'BBQs'
+            ? `
+            <!-- BBQ UI -->
+            <div class="text-center mt-4">
 
-        <!-- HAANDI SIZE -->
-        <div>
-            <p class="text-[11px] text-cream/50 mb-2 text-center tracking-wide">
-                CHOOSE HAANDI
-            </p>
+                <span class="inline-block mb-3 text-xs px-3 py-1 rounded-full bg-red/20 text-red-400 font-semibold">
+                    🔥 Flame Grilled
+                </span>
 
-            <div class="flex justify-center gap-2 flex-wrap">
+                <p class="text-[12px] text-cream/50 mb-3 tracking-wide">
+                    SERVED HOT FROM GRILL
+                </p>
 
-                <button onclick="selectOption(this, '${item.name}', 'size', 'Safar')" 
-                    class="option-btn active-btn">
-                    Safar <span class="text-[10px] opacity-70">• Small (1 Per)</span>
-                </button>
-
-                <button onclick="selectOption(this, '${item.name}', 'size', 'Mehfil')" 
-                    class="option-btn">
-                    Mehfil <span class="text-[10px] opacity-70">• Medium (2 Per)</span>
-                </button>
-
-                <button onclick="selectOption(this, '${item.name}', 'size', 'Dawaati')" 
-                    class="option-btn">
-                    Dawaati <span class="text-[10px] opacity-70">• Large (3 Per)</span>
+                <button class="bg-gradient-to-r from-orange to-red text-white px-6 py-2 rounded-full text-sm font-semibold shadow hover:scale-105 transition">
+                    Experience the Grill
                 </button>
 
             </div>
-        </div>
+            `
+            : `
+            <!-- BIRYANI UI -->
+
+            ${
+                item.name.toLowerCase().includes('paneer') || item.name.toLowerCase().includes('kathal')
+                ? `
+                <div class="text-center mb-4">
+                    <span class="bg-green-600/20 text-green-400 px-3 py-1 rounded-full text-xs font-semibold">
+                        🌿 Pure Veg
+                    </span>
+                </div>
+                `
+                : `
+                <!-- PROTEIN -->
+                <div class="mb-4">
+                    <p class="text-[11px] text-cream/50 mb-2 text-center tracking-wide">
+                        CHOOSE PROTEIN
+                    </p>
+
+                    <div class="flex justify-center gap-2">
+                        <button onclick="selectOption(this, '${item.name}', 'protein', 'Chicken')" 
+                            class="option-btn active-btn">
+                            Chicken
+                        </button>
+
+                        <button onclick="selectOption(this, '${item.name}', 'protein', 'Mutton')" 
+                            class="option-btn">
+                            Mutton
+                        </button>
+                    </div>
+                </div>
+                `
+            }
+
+            <!-- HAANDI SIZE -->
+            <div>
+                <p class="text-[11px] text-cream/50 mb-2 text-center tracking-wide">
+                    CHOOSE HAANDI
+                </p>
+
+                <div class="flex justify-center gap-2 flex-wrap">
+
+                    <button onclick="selectOption(this, '${item.name}', 'size', 'Safar')" 
+                        class="option-btn active-btn">
+                        Safar <span class="text-[10px] opacity-70">• 1 Person</span>
+                    </button>
+
+                    <button onclick="selectOption(this, '${item.name}', 'size', 'Mehfil')" 
+                        class="option-btn">
+                        Mehfil <span class="text-[10px] opacity-70">• 2 People</span>
+                    </button>
+
+                    <button onclick="selectOption(this, '${item.name}', 'size', 'Dawaati')" 
+                        class="option-btn">
+                        Dawaati <span class="text-[10px] opacity-70">• 3 People</span>
+                    </button>
+
+                </div>
+            </div>
+            `
+        }
 
     </div>
 
@@ -739,7 +851,6 @@ menuGrid.innerHTML += `
 
 </div>
 `;
-
                 });
                 menuGrid.style.opacity = '1';
                 refreshIcons();
