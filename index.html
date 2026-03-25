@@ -141,7 +141,17 @@
     color: white;
     box-shadow: 0 4px 12px rgba(212,88,28,0.4);
 }
-
+.special-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #FFD700, #FF8C00);
+    color: #1c110c;
+    box-shadow: 0 4px 12px rgba(255, 165, 0, 0.4);
+    letter-spacing: 0.5px;
+}
 
 
     </style>
@@ -301,7 +311,7 @@
 
         <!-- MENU GRID -->
         <div id="menu-grid"
-            class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto reveal-up transition-all duration-300">
+            class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto items-stretch reveal-up transition-all duration-300">
         </div>
 
 
@@ -482,6 +492,13 @@
 }
         // --- DATA ---
       const menuData = [
+
+     {
+    name: 'Haandi Assam Kamrupi Biryani',
+    category: 'Haandi Biryani',
+    image: 'haandi12.webp',
+    desc: 'A light, aromatic Assamese biryani with subtle spices, fresh herbs, and a delicate earthy flavor.'
+  },
          {
     name: 'Dum-e-Fish Haandi Shaandi',
     category: 'Curries',
@@ -493,6 +510,12 @@
     category: 'Haandi Biryani',
     image: 'haandi6.png',
     desc: 'Seeraga samba rice with a distinct peppery, tangy southern flair.'
+  },
+        {
+    name: 'Mughal Haandi Mutton',
+    category: 'Curries',
+    image: 'haandi14.jpg',
+    desc: 'Rich, creamy Mughlai mutton cooked in a flavorful tomato-based gravy with aromatic spices'
   },
   {
     name: 'Haandi Donne Biryani',
@@ -506,12 +529,7 @@
     image: 'hero1.png',
     desc: 'Rich, spicy, and deeply flavorful, cooked in authentic kacchi dum style.'
   },
-   {
-    name: ' Haandi Kashmiri Biryani',
-    category: 'Haandi Biryani',
-    image: 'haandi9.png',
-    desc: 'Infused with saffron, dry fruits, and a hint of sweetness.'
-  },
+   
   {
   name: 'Haandi Kathal Biryani',
   category: 'Haandi Biryani',
@@ -603,7 +621,24 @@
     category: 'BBQs',
     image: 'bbqs8.jpg',
     desc: 'Juicy lamb chops grilled with aromatic spices and smoky richness.'
-  }
+  },
+
+
+{
+  name: ' Haandi Kashmiri Biryani',
+  category: 'Haandi Biryani',
+  image: 'haandi9.png',
+  desc: 'Infused with saffron, dry fruits, and a hint of sweetness.',
+  special: true
+},
+{
+  name: 'Royal Mughal Biryani',
+  category: 'Haandi Biryani',
+  image: 'haandi13.png',
+  desc: 'Rich and royal biryani with dry fruits, saffron, and Mughlai flavors.',
+  special: true
+},
+
   
 
 ];
@@ -713,11 +748,14 @@
             menuGrid.style.opacity = '0';
             setTimeout(() => {
                 menuGrid.innerHTML = '';
-                menuData.filter(item => item.category === category).forEach(item => {
+               menuData
+  .filter(item => item.category === category)
+  .sort((a, b) => (b.special === true) - (a.special === true)) // ⭐ SPECIAL FIRST
+  .forEach(item => {
 
 
 menuGrid.innerHTML += `
-<div class="relative group max-w-sm mx-auto mt-16 transition hover:-translate-y-2 duration-300">
+<div class="relative group max-w-sm mx-auto transition hover:-translate-y-2 duration-300">
 
     <!-- IMAGE -->
     <div class="relative h-56 overflow-hidden rounded-t-[90px]">
@@ -733,10 +771,6 @@ menuGrid.innerHTML += `
             ${item.name}
         </h3>
 
-        <!-- PRICE -->
-        <div class="absolute top-4 right-4 bg-cream text-terracotta text-sm px-4 py-1 rounded-full font-bold shadow-lg border border-orange/20">
-            ₹199
-        </div>
     </div>
 
     <!-- BODY -->
@@ -751,7 +785,6 @@ menuGrid.innerHTML += `
         ${
             item.category === 'Curries'
             ? `
-            <!-- CURRY UI -->
             <div class="text-center mt-4">
                 <span class="inline-block mb-3 text-xs px-3 py-1 rounded-full bg-orange/20 text-orange font-semibold">
                     Chef Special
@@ -764,7 +797,6 @@ menuGrid.innerHTML += `
             `
             : item.category === 'BBQs'
             ? `
-            <!-- BBQ UI -->
             <div class="text-center mt-4">
 
                 <span class="inline-block mb-3 text-xs px-3 py-1 rounded-full bg-red/20 text-red-400 font-semibold">
@@ -783,6 +815,18 @@ menuGrid.innerHTML += `
             `
             : `
             <!-- BIRYANI UI -->
+
+            ${
+                item.special
+                ? `
+                <div class="text-center mb-4">
+                   <span class="bg-orange/20 text-orange px-3 py-1 rounded-full text-xs font-semibold">
+    ⭐ Special
+</span>
+                </div>
+                `
+                : ''
+            }
 
             ${
                 item.name.toLowerCase().includes('paneer') || item.name.toLowerCase().includes('kathal')
