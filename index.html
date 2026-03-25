@@ -152,6 +152,11 @@
     box-shadow: 0 4px 12px rgba(255, 165, 0, 0.4);
     letter-spacing: 0.5px;
 }
+.option-btn {
+    position: relative;
+    z-index: 20; 
+    cursor: pointer;
+}
 
 
     </style>
@@ -490,6 +495,21 @@
         lucide.createIcons();
     }
 }
+
+// Select 
+function selectOption(btn, itemName, type, value) {
+    const parent = btn.parentElement;
+
+    // remove active from siblings
+    parent.querySelectorAll('.option-btn').forEach(b => {
+        b.classList.remove('active-btn');
+    });
+
+    // add active to clicked
+    btn.classList.add('active-btn');
+
+    console.log(itemName, type, value); // debug
+}
         // --- DATA ---
       const menuData = [
 
@@ -755,7 +775,7 @@
 
 
 menuGrid.innerHTML += `
-<div class="relative group max-w-sm mx-auto transition hover:-translate-y-2 duration-300">
+<div class="relative group max-w-sm mx-auto z-10 transition hover:-translate-y-2 duration-300">
 
     <!-- IMAGE -->
     <div class="relative h-56 overflow-hidden rounded-t-[90px]">
@@ -764,7 +784,7 @@ menuGrid.innerHTML += `
              class="w-full h-full object-cover group-hover:scale-110 transition duration-700"/>
 
         <!-- OVERLAY -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
 
         <!-- TITLE -->
         <h3 class="absolute bottom-3 left-5 right-5 text-white font-heading text-lg font-bold">
