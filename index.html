@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -157,8 +160,165 @@
     z-index: 20; 
     cursor: pointer;
 }
+#state-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Smooth modal animation */
+#state-modal {
+  transition: all 0.4s ease;
+}
+
+#state-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal box animation */
+#state-modal > div {
+  transform: scale(0.9);
+  transition: all 0.4s ease;
+    background: linear-gradient(145deg, #fffaf3, #f4e4cf);
+  border: 1px solid rgba(184,58,13,0.25);
+  box-shadow: 
+    0 25px 80px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+#state-modal.show > div {
+  transform: scale(1);
+}
+
+/* Image smooth fade */
+#state-modal img {
+  transition: opacity 0.4s ease, transform 0.5s ease;
+}
+
+#state-modal img:hover {
+  transform: scale(1.05);
+}
+
+/* PREMIUM SCROLLBAR */
+#state-modal div::-webkit-scrollbar {
+  width: 8px;
+}
+
+#state-modal div::-webkit-scrollbar-track {
+  background: #F4EAD8;
+  border-radius: 10px;
+}
+
+#state-modal div::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #B83A0D, #D4581C);
+  border-radius: 10px;
+}
+
+#state-modal div::-webkit-scrollbar-thumb:hover {
+  background: #C22E1A;
+}
+#modal-desc span {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+.ai-highlight {
+  background: linear-gradient(135deg, #ffcc70, #D4581C, #B83A0D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  text-shadow: 
+    0 0 8px rgba(212,88,28,0.6),
+    0 0 16px rgba(184,58,13,0.4);
+
+  position: relative;
+}
+
+/* subtle glow pulse */
+.ai-highlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: rgba(212,88,28,0.15);
+  filter: blur(8px);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+#modal-desc span:nth-child(1) { animation-delay: 0.1s; }
+#modal-desc span:nth-child(2) { animation-delay: 0.2s; }
+#modal-desc span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.swiper-slide {
+  transform: scale(0.92);
+  opacity: 0.6;
+  transition: all 0.8s ease;
+}
 
 
+.swiper-slide-active {
+  transform: scale(1);
+  opacity: 1;
+}
+.swiper-slide img {
+  transition: transform 0.4s ease;
+}
+.swiper-slide-active img {
+  transform: scale(1.1);
+}
+.swiper-slide:hover img {
+  transform: scale(1.05);
+}
+.swiper-pagination-bullet {
+  background: #d1d5db;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #B83A0D;
+  width: 20px;
+  border-radius: 10px;
+}
+.swiper-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+  border-radius: 16px;
+}
+.label-tag {
+  position: absolute;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2A1B14;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  backdrop-filter: blur(6px);
+}
+.word {
+  transition: all 0.3s ease;
+}
+
+.word.active {
+  background: linear-gradient(135deg, #ffcc70, #D4581C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(212,88,28,0.6);
+}
     </style>
 </head>
 <body class="font-body selection:bg-terracotta selection:text-cream">
@@ -489,12 +649,302 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+
+let currentSpeech = null;
+
+function playVoice(text) {
+  // stop previous
+  if (speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+  }
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.lang = "en-IN";
+  speech.rate = 0.9;   // slow cinematic
+  speech.pitch = 1;
+
+  currentSpeech = speech;
+  speechSynthesis.speak(speech);
+}
+
+function stopVoice() {
+  speechSynthesis.cancel();
+
+  if (highlightInterval) {
+    clearInterval(highlightInterval);
+  }
+
+  // remove highlight
+  document.querySelectorAll("#modal-desc .word")
+    .forEach(w => w.classList.remove("active"));
+}
+
+
+function speakAndHighlight(text) {
+
+  const wordElements = document.querySelectorAll("#modal-desc .word");
+  const words = text.split(" ");
+
+  let index = 0;
+
+  speechSynthesis.cancel();
+
+  const speech = new SpeechSynthesisUtterance(text);
+  speech.lang = "en-IN";
+  speech.rate = 0.9;
+
+ speech.onboundary = function(event) {
+
+  const charIndex = event.charIndex;
+
+  // find which word we are on
+  let count = 0;
+  let wordIndex = 0;
+
+  for (let i = 0; i < text.length; i++) {
+
+    if (text[i] === " ") {
+      count++;
+    }
+
+    if (i >= charIndex) {
+      wordIndex = count;
+      break;
+    }
+  }
+
+  // remove all
+  wordElements.forEach(w => w.classList.remove("active"));
+
+  // highlight correct word
+  if (wordElements[wordIndex]) {
+    wordElements[wordIndex].classList.add("active");
+  }
+};
+
+  speech.onend = function() {
+    wordElements.forEach(w => w.classList.remove("active"));
+  };
+
+  speechSynthesis.speak(speech);
+}
+//state Data 
+const stateData = {
+  Kashmir: {
+  title: "Kashmiri Haandi Biryani",
+  desc: "“Kashmir whispers through its mountains and silence.Not just beauty—Kashmir is peace you can feel.Where snow falls softly and hearts stay warm.Kahwa, calm, and quiet mornings.In Kashmir, nature speaks louder than words.A land where heaven touches earth.Simple lives, surrounded by endless beauty.Kashmir isn’t just seen—it’s deeply felt.Every corner holds a story of serenity.Where valleys breathe and time slows down.”",
+  view: "kashmir5.jpeg",
+  culture: "kashmir8.jpeg",
+  biryani: "kashmir4.jpeg",
+
+  // 🔥 ADD THIS
+  gallery: [
+    "kashmir1.jpeg",
+    "kashmir2.jpeg",
+    "kashmir3.jpeg",
+    "kashmir4.jpeg",
+    "kashmir6.jpeg"
+  ],
+
+  labels: {
+    rice: "🍚 Basmati",
+    protein: "🍗 Chicken/Mutton",
+    extra: "🌰 Dry Fruits",
+    special: "✨ Saffron"
+  }
+},
+ Hyderabad: {
+  title: "Haandi Hyderabadi Dum Biryani",
+  desc: "“Haydrabad breathes in history, speaks in warmth.From Charminar’s shadow to chai’s aroma—pure Haydrabad Biryani isn’t food here, it’s an emotion.Old city vibes, timeless hearts.Where pearls, culture, and kindness shine together.In Haydrabad , every lane has a royal past.Tehzeeb in words, love in actions.Slow conversations over Irani chai—that’s real life here.A city of Nawabs, stories, and soulful living.Hydrabad isn’t loud—it’s gracefully alive",
+  view: "hyderabad13.jpg",
+  culture: "heydarbad11.jpeg",
+  biryani: "heydarbad8.jpeg",
+
+  // 🔥 ADD THIS
+  gallery: [
+    "heydarbad3.jpeg",
+    "heydarbad10.jpeg",
+    "heydarbad2.jpeg",
+    "heydrabad1.jpeg",
+    "heydarbad14.jpeg"
+  ],
+labels: {
+  rice: "🍚 Premium Aged Basmati",
+  protein: "🍗 Chicken/Mutton",
+  extra: "🌶️ Robust Spice Mix",
+  special: "✨ Kacchi Dum Slow Cooked"
+}
+ 
+},
+ Lucknow: {
+  title: "Luknow Haandi Biryani",
+  desc: "“Lucknow speaks softly, but with unmatched grace.Tehzeeb in every word, adaab in every gesture.Not just a city—Lucknow is a culture of respect.From Imambaras to kebabs—royalty lives here.Where words are gentle and hearts are warm.Nazakat, nafaasat, and pure elegance.In Lucknow, even conversations feel poetic.A city that teaches you how to speak with love.Tradition wrapped in kindness—that’s Lucknow.Here, respect is not taught—it’s lived.”",
+  view: "lucknow4.jpeg",
+  culture: "lucknow1.jpeg",
+  biryani: "lucknow2.jpeg",
+
+  // 🔥 ADD THIS
+  gallery: [
+    "lucknow6.jpeg",
+    "lucknow3.jpeg",
+    "lucknow5.jpeg",
+    
+  ],
+
+  labels: {
+  rice: "🍚 Aged Basmati",
+  protein: "🍗 Chicken/Mutton",
+  extra: "🌿 Subtle Aromatics",
+  special: "✨ Dum Pukht Slow Cooked"
+}
+},
+ Assam: {
+  title: "Haandi Assam Kamrupi Biryani",
+  desc: "“Assam flows with the rhythm of the Brahmaputra.Tea gardens, rain, and roots—that’s real Assam.Where Bihu dances celebrate life and seasons.Simple living, rich traditions, deep hearts.In Assam, nature and culture grow together.From bamboo homes to endless greens—peace lives here.Every cup of tea carries a story of Assam.☕Quiet, calm, and deeply connected to the earth.Assam isn’t loud—it’s beautifully alive.Where rivers, rain, and culture shape life.”",
+  view: "assam2.jpeg",
+  culture: "assam12.jpeg",
+  biryani: "assam10.jpeg",
+
+  // 🔥 ADD THIS
+  gallery: [
+    "assam1.jpeg",
+   "assam3.jpeg",
+    "assam4.jpeg",
+    "assam5.jpeg",
+    "assam6.jpeg",
+    "assam7.jpeg",
+    "assam8.jpeg",
+    "assam9.jpeg",
+    "assam11.jpeg",
+     "assam13.jpeg",
+     "assam14.jpeg",
+     "assam15.jpeg"
+  ],
+
+  labels: {
+  rice: "🍚 Aromatic Joha Rice",
+  protein: "🍗 Chicken/Mutton",
+  extra: "🌿 Native Herbs",
+  special: "✨ Subtle & Earthy Flavour"
+}
+},
+ Kolkata: {
+  title: "Haandi Kolkata Biryani",
+  desc: "“Kolkata lives in its adda, art, and endless stories.Not just a city—Kolkata is pure emotion.From tram lines to timeless minds.Books, chai, and conversations that never end.Durga Puja isn’t a festival here—it’s a feeling.In Kolkata, every street has a story to tell.Where old soul meets modern chaos beautifully.Puchka, poetry, and passion—that’s Kolkata.A city that thinks, feels, and dreams deeply.Kolkata doesn’t rush—it reflects.”",
+  view: "kolkata10.jpeg",
+  culture: "kolkata9.jpeg",
+  biryani: "kolkata7.jpeg",
+
+  // 🔥 ADD THIS
+  gallery: [
+    "kolkata1.jpeg",
+    "kolkata2.jpeg",
+    "kolkata3.jpeg",
+    "kolkata4.jpeg",
+    "kolkata5.jpeg",
+    "kolkata6.jpeg",
+    "kolkata8.jpeg",
+    "kolkata11.jpeg",
+    "kolkata12.jpeg",
+    "kolkata13.jpeg",
+    "kolkata14.jpeg",
+    "kolkata15.jpeg",
+    "kolkata16.jpeg",
+    "kolkata17.jpeg",
+    "kolkata18.jpeg",
+  ],
+
+  labels: {
+  rice: "🍚 Long-Grain Basmati",
+  protein: "🍗 Chicken/Mutton",
+  extra: "🥔 Classic Aloo",
+  special: "✨ Mild & Nawabi Flavour"
+}
+},
+ Karnataka: {
+  title: "Haandi karnataka Biryani",
+  desc: "“Karnataka lives in its heritage, hills, and heartfelt simplicity.From Hampi’s ruins to Coorg’s mist—history meets nature.Where tradition echoes through stone and soul.Filter coffee mornings, slow and soulful.☕Yakshagana stories painted in color and culture.Karnataka isn’t loud, it’s deeply felt.In every corner, a legacy quietly breathes.Temples, forests, and timeless traditions.Simple life, rich culture—that’s Karnataka.Where past and present walk together.”",
+  view: "karnataka11.jpeg",
+  culture: "karnataka12.jpeg",
+  biryani: "karnataka1.jpeg",
+
+  // 🔥 ADD THIS
+  gallery: [
+    "karnataka13.jpeg",
+    "karnataka5.jpeg",
+    "karnataka7.jpeg",
+    "karnataka4.jpeg",
+    "karnataka9.jpeg"
+  ],
+
+  labels: {
+  rice: "🍚 Aromatic Seeraga Samba",
+  protein: "🍗 Chicken/Mutton",
+  extra: "🌿 Fresh Herb Blend",
+  special: "✨ Signature Green Masala"
+}
+},
+ TamilNadu: {
+  title: "Haandi TamilNadu Biryani",
+  desc: "“Tamil Nadu speaks through its temples, traditions, and timeless soul.Where every sunrise begins with kolam and devotion.From Bharatanatyam steps to temple bells—culture lives here.Rice, rasam, and roots—simple life, rich heritage.Tamil Nadu is not just history, it’s a living tradition.Where art, language, and spirituality flow together.In every street, there’s a story older than time.Here, tradition isn’t followed—it’s lived every day.”",
+  view: "tamilnadu3.jpeg",
+  culture:"tamilnadu8.jpeg",
+  biryani: "tamilnadu6.jpeg",
+
+  // 🔥 ADD THIS
+  gallery: [
+    "tamilnadu1.jpeg",
+    "tamilnadu2.jpeg",
+    "tamilnadu4.jpeg",
+    "tamilnadu5.jpeg",
+    "tamilnadu7.jpeg",
+    "tamilnadu9.jpeg",
+    "tamilnadu10.jpeg",
+    "tamilnadu11.jpeg",
+    "tamilnadu12.jpeg"
+  ],
+
+  labels: {
+  rice: "🍚 Aromatic Seeraga Samba",
+  protein: "🍗 Chicken/Mutton",
+  extra: "🌶️ Pepper Spice Blend",
+  special: "✨ Tangy South Style"
+}
+},
+ Kerala: {
+  title: " Haandi Kerala Biryani",
+  desc: "“Kerala flows where water, earth, and soul become one.Life here moves with the rhythm of the backwaters.Coconut trees whisper stories of calm and culture.Not just beauty—Kerala is tradition in every breath.From Kathakali eyes to temple bells, every moment speaks.•Slow, soulful, and deeply rooted—that’s Kerala”",
+  view: "Kerala10.jpeg",
+  culture: "kerala5.jpeg",
+  biryani: "kerala7.jpeg",
+
+  // 🔥 ADD THIS
+  gallery: [
+    "kerala1.jpeg",
+    "kerala3.jpeg",
+    "kerala2.jpeg",
+    "kerala6.jpeg",
+    "kerala8.jpeg"
+  ],
+
+  labels: {
+  rice: "🍚 Short-Grain Kaima Rice",
+  protein: "🍗 Chicken/Mutton",
+  extra: "🥜 Cashew & Raisin Garnish",
+  special: "✨ Ghee Infused Richness"
+}
+},
+  
+};
 // icon function
         function refreshIcons() {
     if (window.lucide) {
         lucide.createIcons();
     }
 }
+
+
 
 // Select 
 function selectOption(btn, itemName, type, value) {
@@ -510,6 +960,138 @@ function selectOption(btn, itemName, type, value) {
 
     console.log(itemName, type, value); // debug
 }
+// modal open
+function openModal() {
+  document.getElementById("state-modal").classList.add("show");
+}
+// modal close 
+function closeModal() {
+  document.getElementById("state-modal").classList.remove("show");
+}
+
+// State click modal open 
+function handleStateClick(state) {
+
+  const data = stateData[state];
+  if (!data) return;
+
+  openModal();
+
+  // TEXT
+  document.getElementById("modal-state-name").innerText = state;
+  document.getElementById("modal-title").innerText = data.title;
+  // desc
+  const keyword = state; // Kashmir, Hyderabad, etc.
+
+const words = data.desc.split(" ");
+
+const formattedDesc = words
+  .map(word => `<span class="word">${word}</span>`)
+  .join(" ");
+
+document.getElementById("modal-desc").innerHTML = formattedDesc;
+  
+  
+document.getElementById("modal-desc").innerHTML = formattedDesc;
+  // IMAGES (smooth change)
+  const view = document.getElementById("modal-view");
+  const culture = document.getElementById("modal-culture");
+  const biryani = document.getElementById("modal-biryani");
+
+  [view, culture, biryani].forEach(img => img.style.opacity = 0);
+
+  setTimeout(() => {
+    view.src = data.view;
+    culture.src = data.culture;
+    biryani.src = data.biryani;
+
+    [view, culture, biryani].forEach(img => img.style.opacity = 1);
+  }, 200);
+
+  // LABELS
+  document.getElementById("label-rice").innerText = data.labels.rice;
+  document.getElementById("label-protein").innerText = data.labels.protein;
+  document.getElementById("label-extra").innerText = data.labels.extra;
+  document.getElementById("label-special").innerText = data.labels.special;
+
+  loadGallery(data.gallery || []);
+ 
+}
+function startAI() {
+ const text = document.getElementById("modal-desc").textContent;
+
+  if (!text) {
+    console.log("No text found");
+    return;
+  }
+
+  speakAndHighlight(text);
+}
+let swiper;
+
+function loadGallery(images = []) {
+  const gallery = document.getElementById("modal-gallery");
+  gallery.innerHTML = "";
+
+images.forEach(img => {
+  gallery.innerHTML += `
+    <div class="swiper-slide flex items-center justify-center">
+
+      
+<div class="relative w-full h-[340px] md:h-[420px] overflow-hidden rounded-xl">
+
+  <!-- BLUR BACKGROUND -->
+  <img src="${img}" 
+       class="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40"/>
+
+  <!-- MAIN IMAGE -->
+  <img src="${img}" 
+       loading="lazy"
+       data-swiper-parallax="-100"
+       class="h-full max-w-none object-contain mx-auto scale-110 md:scale-125"/>
+
+</div>
+    </div>
+  `;
+});
+ 
+
+    
+
+
+  // destroy old swiper
+  if (swiper) swiper.destroy(true, true);
+
+swiper = new Swiper(".mySwiper", {
+  loop: true,
+  slidesPerView: 1.2,
+  centeredSlides: true,
+  spaceBetween: 20,
+  speed: 1000,
+
+  parallax: true, 
+
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: false,
+  },
+
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true
+  },
+
+  on: {
+    init(swiperInstance) {
+      const el = document.querySelector(".mySwiper");
+      el.addEventListener("mouseenter", () => swiperInstance.autoplay.stop());
+      el.addEventListener("mouseleave", () => swiperInstance.autoplay.start());
+    }
+  }
+});
+}
+
+
         // --- DATA ---
       const menuData = [
 
@@ -663,7 +1245,7 @@ function selectOption(btn, itemName, type, value) {
 
 ];
 
-        const regions = ['Kashmir', 'Lucknow', 'Assam', 'Kolkata', 'Hyderabad', 'Karnataka', 'Tamil Nadu', 'Kerala'];
+        const regions = ['Kashmir', 'Lucknow', 'Assam', 'Kolkata', 'Hyderabad', 'Karnataka', 'TamilNadu', 'Kerala'];
 
         const sizes =[];
         
@@ -683,11 +1265,18 @@ function selectOption(btn, itemName, type, value) {
         const regionsGrid = document.getElementById('regions-grid');
         regions.forEach((region, index) => {
             const delay = `delay-${(index % 4) * 100}`;
-            regionsGrid.innerHTML += `
-                <div class="reveal-up ${delay} bg-cream/5 border border-orange/30 rounded-xl p-6 text-center hover:bg-orange/10 transition-colors cursor-pointer group">
-                    <i data-lucide="map-pin" class="mx-auto text-orange mb-3 group-hover:scale-110 transition-transform w-7 h-7"></i>
-                    <h3 class="font-heading text-xl font-semibold text-cream">${region}</h3>
-                </div>`;
+           regionsGrid.innerHTML += `
+<div onclick="handleStateClick('${region}')"
+     class="reveal-up ${delay} bg-cream/5 border border-orange/30 rounded-xl p-6 text-center hover:bg-orange/10 transition-colors cursor-pointer group">
+
+    <i data-lucide="map-pin"
+       class="mx-auto text-orange mb-3 group-hover:scale-110 transition-transform w-7 h-7"></i>
+
+    <h3 class="font-heading text-xl font-semibold text-cream">
+        ${region}
+    </h3>
+
+</div>`;
                
         });
         refreshIcons();
@@ -1140,7 +1729,155 @@ phoneInputs.forEach(input => {
 
 });     
 
-   
+   document.addEventListener("DOMContentLoaded", () => {
+
+  const playBtn = document.getElementById("voice-play");
+  const stopBtn = document.getElementById("voice-stop");
+
+  if (playBtn) {
+    playBtn.onclick = () => {
+      const text = document.getElementById("modal-desc").innerText;
+      speakAndHighlight(text);
+    };
+  }
+
+  if (stopBtn) {
+    stopBtn.onclick = () => {
+      stopVoice();
+    };
+  }
+
+});
+   document.addEventListener("click", function(e) {
+
+  if (e.target.id === "voice-play") {
+    const text = document.getElementById("modal-desc").innerText;
+    speakAndHighlight(text);
+  }
+
+  if (e.target.id === "voice-stop") {
+    stopVoice();
+  }
+
+});
 </script>
+
+<!-- STATE MODAL -->
+<div id="state-modal"
+     class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition duration-300">
+
+  <div class="bg-cream w-[95%] md:w-[900px] max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl p-6 md:p-10 relative">
+
+    <!-- CLOSE BUTTON -->
+    <button onclick="closeModal()"
+            class="absolute top-4 right-4 text-dark text-2xl font-bold">
+      ✕
+    </button>
+
+    <!-- TITLE -->
+    <h2 class="text-center font-heading text-3xl md:text-4xl font-bold text-terracotta mb-10">
+      Experience the Taste of <span id="modal-state-name">Kashmir</span>
+    </h2>
+
+    <!-- IMAGES -->
+    <div class="grid md:grid-cols-2 gap-6 mb-10">
+
+      <img id="modal-view"
+           src="kashmir-view.jpg"
+           class="w-full h-52 object-cover bg-black/10 rounded-2xl shadow"/>
+
+      <img id="modal-culture"
+           src="kashmir-culture.jpg"
+           class="w-full h-52 object-cover bg-black/10 rounded-2xl shadow"/>
+
+    </div>
+
+    <!-- BIRYANI -->
+    <div class="text-center">
+
+      <h3 id="modal-title"
+          class="font-heading text-xl mb-6">
+        Kashmiri Haandi Biryani
+      </h3>
+
+      <div class="relative w-56 h-56 mx-auto rounded-full border-4 border-orange flex items-center justify-center bg-white/40 backdrop-blur-sm">
+
+        <img id="modal-biryani"
+             src="kashmiri4.jpeg"
+             class="w-52 h-52 rounded-full object-cover bg-black/10"/>
+
+        <!-- LABELS -->
+        <!-- LABELS -->
+<span id="label-rice"
+      class="label-tag top-0 left-1/2 -translate-x-1/2 -translate-y-6">
+</span>
+
+<span id="label-protein"
+      class="label-tag right-0 top-1/2 translate-x-12 -translate-y-1/2">
+</span>
+
+<span id="label-extra"
+      class="label-tag left-0 top-1/2 -translate-x-12 -translate-y-1/2">
+</span>
+
+<span id="label-special"
+      class="label-tag bottom-0 left-1/2 -translate-x-1/2 translate-y-8">
+</span>
+
+      </div>
+
+      <div class="mt-8 max-w-lg mx-auto text-center 
+            bg-white/20 backdrop-blur-md 
+            border border-white/30 
+            rounded-2xl px-6 py-5 
+            shadow-[0_10px_40px_rgba(0,0,0,0.25)]">
+
+  <!-- QUOTE ICON -->
+  <div class="text-orange text-xl mb-3">❝</div>
+
+  <!-- DESCRIPTION -->
+  <p id="modal-desc"
+     class="font-body text-[14px] md:text-[15px] leading-relaxed text-dark/80 tracking-wide">
+  </p>
+  
+ <div class="flex justify-center gap-3 mt-4">
+
+  <button onclick="startAI()" id="voice-play"
+    class="bg-orange text-white px-4 py-2 rounded-full text-sm ">
+    🔊 Listen
+  </button>
+
+  <button id="voice-stop"
+    class="bg-dark text-white px-4 py-2 rounded-full text-sm">
+    ⏹ Stop
+  </button>
+
+</div>
+
+  <!-- LINE -->
+  <div class="w-12 h-[2px] bg-orange mx-auto mt-4 rounded-full"></div>
+
+</div>
+      <!-- SWIPER GALLERY  -->
+<div class="swiper mySwiper mt-8">
+  <div class="swiper-wrapper" id="modal-gallery"></div>
+
+  <div class="swiper-pagination mt-4"></div>
+</div>
+
+      <!-- BUTTONS -->
+      <div class="flex gap-4 mt-6 justify-center flex-wrap">
+        <button class="bg-terracotta text-white px-6 py-2 rounded-full">
+          Locate us
+        </button>
+        <button class="border border-terracotta text-terracotta px-6 py-2 rounded-full">
+          Menu
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
 </body>
 </html>
