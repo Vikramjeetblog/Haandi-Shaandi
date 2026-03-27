@@ -189,6 +189,46 @@
 #state-modal.show > div {
   transform: scale(1);
 }
+.modal-close-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+
+  color: #B83A0D;
+
+  box-shadow: 
+    0 4px 12px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+
+  transition: all 0.3s ease;
+}
+
+/* hover effect */
+.modal-close-btn:hover {
+  background: #B83A0D;
+  color: white;
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* click effect */
+.modal-close-btn:active {
+  transform: scale(0.95);
+}
+@media (max-width: 768px) {
+  .modal-close-btn {
+    width: 48px;
+    height: 48px;
+    top: 12px;
+    right: 12px;
+  }
+}
 
 /* Image smooth fade */
 #state-modal img {
@@ -247,6 +287,17 @@
   opacity: 0.6;
   z-index: -1;
 }
+@media (max-width: 768px) {
+  #listen-btn {
+    display: none !important;
+  }
+}
+@media (max-width: 768px) {
+  #stop-btn {
+    display: none !important;
+  }
+}
+
 
 #modal-desc span:nth-child(1) { animation-delay: 0.1s; }
 #modal-desc span:nth-child(2) { animation-delay: 0.2s; }
@@ -274,7 +325,7 @@
   transition: transform 0.4s ease;
 }
 .swiper-slide-active img {
-  transform: scale(1.1);
+  transform: scale(1);
 }
 .swiper-slide:hover img {
   transform: scale(1.05);
@@ -519,7 +570,14 @@
                              inputmode="numeric" 
                                 class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-terracotta transition-all text-dark" placeholder="If different" /></div>
                         </div>
-                        <div><label class="block text-sm font-medium text-dark mb-2">Which biryani are you most excited for?</label><select id="biryani-select" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-terracotta transition-all text-dark"></select></div>
+           
+
+  <div>
+    <label class="block text-sm font-medium text-dark mb-2">Which biryani are you most excited for?</label>
+    <select id="biryani-select" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-terracotta transition-all text-dark">
+        
+    </select>
+</div>
                         <button type="submit" class="w-full bg-terracotta text-cream py-4 rounded-xl font-heading font-bold text-lg hover:bg-red transition-colors shadow-lg flex items-center justify-center gap-2">Join the List <i data-lucide="arrow-right" class="w-5 h-5"></i></button>
                     </form>
                     <div id="success-message" class="hidden h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
@@ -650,6 +708,20 @@
     <!-- JAVASCRIPT LOGIC -->
     <script>
 
+
+function goToSection(sectionId){
+    closeModal();
+
+setTimeout(() => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }, 200);
+}
 let currentSpeech = null;
 
 function playVoice(text) {
@@ -1038,7 +1110,7 @@ images.forEach(img => {
     <div class="swiper-slide flex items-center justify-center">
 
       
-<div class="relative w-full h-[340px] md:h-[420px] overflow-hidden rounded-xl">
+<div class="relative w-full aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-xl">
 
   <!-- BLUR BACKGROUND -->
   <img src="${img}" 
@@ -1048,7 +1120,7 @@ images.forEach(img => {
   <img src="${img}" 
        loading="lazy"
        data-swiper-parallax="-100"
-       class="h-full max-w-none object-contain mx-auto scale-110 md:scale-125"/>
+       class="w-full h-full object-contain mx-auto"/>
 
 </div>
     </div>
@@ -1551,7 +1623,7 @@ form.addEventListener('submit', async function(e) {
     const biryani = document.getElementById('biryani-select').value;
 
     try {
-        await fetch("https://script.google.com/macros/s/AKfycbzojNIlqMyXJMfNVcqsgXcOZCz7sVHM0GoTmhPRmAoc-ASKitzv2rCVM2EvQLJppWyK/exec", {
+        await fetch("https://script.google.com/macros/s/AKfycbzmcyZNuZoHXDD6z7_U5iX6yA0siGjyJB3CHjyrmKB08SWcrtz6zCcw7sWWwlsIScTP/exec", {
             method: "POST",
             mode: "no-cors",
             headers: {
@@ -1768,29 +1840,58 @@ phoneInputs.forEach(input => {
 
   <div class="bg-cream w-[95%] md:w-[900px] max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl p-6 md:p-10 relative">
 
-    <!-- CLOSE BUTTON -->
-    <button onclick="closeModal()"
-            class="absolute top-4 right-4 text-dark text-2xl font-bold">
-      ✕
-    </button>
+   <button onclick="closeModal()" 
+  class="modal-close-btn absolute top-4 right-4 z-50">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       class="w-5 h-5" 
+       fill="none" 
+       viewBox="0 0 24 24" 
+       stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+          d="M6 18L18 6M6 6l12 12" />
+  </svg>
+
+</button>
 
     <!-- TITLE -->
     <h2 class="text-center font-heading text-3xl md:text-4xl font-bold text-terracotta mb-10">
       Experience the Taste of <span id="modal-state-name">Kashmir</span>
     </h2>
 
-    <!-- IMAGES -->
-    <div class="grid md:grid-cols-2 gap-6 mb-10">
+   <div class="grid md:grid-cols-2 gap-6 mb-10">
 
-      <img id="modal-view"
-           src="kashmir-view.jpg"
-           class="w-full h-52 object-cover bg-black/10 rounded-2xl shadow"/>
+  <!-- VIEW IMAGE -->
+  <div class="relative w-full h-52 overflow-hidden rounded-2xl shadow group">
 
-      <img id="modal-culture"
-           src="kashmir-culture.jpg"
-           class="w-full h-52 object-cover bg-black/10 rounded-2xl shadow"/>
+    <!-- IMAGE -->
+    <img id="modal-view"
+         src="kashmir-view.jpg"
+         class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-105"/>
 
-    </div>
+    <!-- SOFT OVERLAY -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+
+  </div>
+
+  <!-- CULTURE IMAGE -->
+  <div class="relative w-full h-52 overflow-hidden rounded-2xl shadow group">
+
+    <!-- IMAGE -->
+    <img id="modal-culture"
+         src="kashmir-culture.jpg"
+         class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-105"/>
+
+    <!-- SOFT OVERLAY -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+
+  </div>
+
+</div>
+
+  
+
+    
 
     <!-- BIRYANI -->
     <div class="text-center">
@@ -1842,12 +1943,12 @@ phoneInputs.forEach(input => {
   
  <div class="flex justify-center gap-3 mt-4">
 
-  <button onclick="startAI()" id="voice-play"
+  <button  id="listen-btn" onclick="startAI()" id="voice-play"
     class="bg-orange text-white px-4 py-2 rounded-full text-sm ">
     🔊 Listen
   </button>
 
-  <button id="voice-stop"
+  <button  onclick="stopVoice()" id="stop-btn"
     class="bg-dark text-white px-4 py-2 rounded-full text-sm">
     ⏹ Stop
   </button>
@@ -1867,10 +1968,10 @@ phoneInputs.forEach(input => {
 
       <!-- BUTTONS -->
       <div class="flex gap-4 mt-6 justify-center flex-wrap">
-        <button class="bg-terracotta text-white px-6 py-2 rounded-full">
+        <button onclick="goToSection('location')" class="bg-terracotta text-white px-6 py-2 rounded-full">
           Locate us
         </button>
-        <button class="border border-terracotta text-terracotta px-6 py-2 rounded-full">
+        <button onclick="goToSection('menu')" class="border border-terracotta text-terracotta px-6 py-2 rounded-full">
           Menu
         </button>
       </div>
