@@ -1496,42 +1496,40 @@ swiper = new Swiper(".mySwiper", {
 menuGrid.innerHTML += `
 <div class="relative group max-w-sm mx-auto z-10 transition hover:-translate-y-2 duration-300">
 
-    <!-- IMAGE -->
-   
-
-<div class="relative">
+    <!-- IMAGE -->     
+   <div class="h-56 relative overflow-hidden rounded-t-[90px]">
 
     ${
       category === 'Haandi Biryani' && getStateFromName(item.name)
       ? `
         <div style="
             position:absolute;
-            top:12px;
-            right:12px;
-            z-index:30;
-            padding:6px 12px;
+            top:10px;
+            right:10px;
+            z-index:20;
+            padding:5px 10px;
             border-radius:999px;
-            font-size:11px;
+            font-size:10px;
             font-weight:600;
 
-            background:rgba(244,234,216,0.95);
+            background:#F4EAD8;
             color:#B83A0D;
 
-            border:1px solid rgba(184,58,13,0.3);
-            box-shadow:0 6px 18px rgba(0,0,0,0.25);
-            backdrop-filter:blur(6px);
+            border:1px solid rgba(184,58,13,0.25);
+            box-shadow:0 4px 10px rgba(0,0,0,0.2);
         ">
-            ● ${getStateFromName(item.name)}
+            📍 ${getStateFromName(item.name)}
         </div>
       `
       : ''
     }
 
-    <div class="h-56 overflow-hidden rounded-t-[90px]">
-        <img src="${item.image}" class="w-full h-full object-cover"/>
-    </div>
+    <img src="${item.image}" 
+         class="w-full h-full object-cover"/>
 
 </div>
+
+
    
     <!-- TITLE -->
     <h3 class="absolute bottom-3 left-5 right-5 text-white font-heading text-lg font-bold">
