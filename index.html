@@ -618,53 +618,14 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
                    
 </div>
                     </form>
-                   <div id="success-message" style="
-  display:none;
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:80px 40px;
-">
-
-  <div style="
-    width:80px;
-    height:80px;
-    border-radius:50%;
-    background:rgba(184,58,13,0.1);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:20px;
-  ">
-    <i data-lucide="check-circle-2" style="width:40px;height:40px;color:#B83A0D;"></i>
-  </div>
-
-  <h4 style="
-    font-family:'Baloo 2';
-    font-size:28px;
-    font-weight:700;
-    color:#2A1B14;
-    margin-bottom:10px;
-  ">
-    You are now on the Haandi List!
-  </h4>
-
-  <p style="
-    color:#5a463c;
-    font-size:16px;
-    max-width:400px;
-  ">
-    We'll contact you via WhatsApp with your exclusive invitation soon.
-  </p>
-
-
+                    <div id="success-message" class="hidden h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
+                        <div class="w-16 h-16 bg-terracotta/10 text-terracotta rounded-full flex items-center justify-center mb-4"><i data-lucide="check-circle-2" class="w-8 h-8"></i></div>
+                        <h4 class="font-heading text-2xl font-bold text-dark">You are now on the Haandi List!</h4>
+                        <p class="text-dark/70">We'll contact you via WhatsApp with your exclusive invitation soon.</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>        
     </section>
 
     <!-- STORY -->
