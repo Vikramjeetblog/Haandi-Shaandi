@@ -579,6 +579,39 @@
     </select>
 </div>
                         <button type="submit" class="w-full bg-terracotta text-cream py-4 rounded-xl font-heading font-bold text-lg hover:bg-red transition-colors shadow-lg flex items-center justify-center gap-2">Join the List <i data-lucide="arrow-right" class="w-5 h-5"></i></button>
+
+                    <div class="space-y-4">
+
+  <!-- PROTEIN -->
+  <div>
+    <label class="block text-sm font-medium text-dark mb-2">
+      Choose Protein <span style="color:red">*</span>
+    </label>
+
+    <div class="flex gap-3">
+      <button type="button" class="option-btn" onclick="selectOption(this, 'protein', 'type', 'Chicken')">Chicken</button>
+      <button type="button" class="option-btn" onclick="selectOption(this, 'protein', 'type', 'Mutton')">Mutton</button>
+    </div>
+
+    <input type="hidden" id="protein-input" required>
+  </div>
+
+  <!-- SIZE -->
+  <div>
+    <label class="block text-sm font-medium text-dark mb-2">
+      Choose Size <span style="color:red">*</span>
+    </label>
+
+    <div class="flex gap-3 flex-wrap">
+      <button type="button" class="option-btn" onclick="selectOption(this, 'size', 'type', 'Safar - 1 Person')">Safar - 1</button>
+      <button type="button" class="option-btn" onclick="selectOption(this, 'size', 'type', 'Mehfil - 2 People')">Mehfil - 2</button>
+      <button type="button" class="option-btn" onclick="selectOption(this, 'size', 'type', 'Dawaat - 3 People')">Dawaat - 3</button>
+    </div>
+
+    <input type="hidden" id="size-input" required>
+  </div>
+
+</div>
                     </form>
                     <div id="success-message" class="hidden h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
                         <div class="w-16 h-16 bg-terracotta/10 text-terracotta rounded-full flex items-center justify-center mb-4"><i data-lucide="check-circle-2" class="w-8 h-8"></i></div>
