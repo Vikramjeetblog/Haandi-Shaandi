@@ -1053,7 +1053,19 @@ labels: {
         lucide.createIcons();
     }
 }
+function getStateFromName(name) {
+    if (name.includes("Assam")) return "Assam";
+    if (name.includes("Hyderabadi")) return "Hyderabad";
+    if (name.includes("Lucknowi")) return "Lucknow";
+    if (name.includes("Kolkata")) return "Kolkata";
+    if (name.includes("Kashmiri")) return "Kashmir";
+    if (name.includes("Kerala")) return "Kerala";
+    if (name.includes("Donne")) return "Karnataka";
+    if (name.includes("Din-di-Gul")) return "Tamil Nadu";
+    if (name.includes("Goan")) return "Goa";
 
+    return "";
+}
 
 
 // Select 
@@ -1481,20 +1493,39 @@ menuGrid.innerHTML += `
 <div class="relative group max-w-sm mx-auto z-10 transition hover:-translate-y-2 duration-300">
 
     <!-- IMAGE -->
-    <div class="relative h-56 overflow-hidden rounded-t-[90px]">
+   <div class="relative h-56 overflow-hidden rounded-t-[90px]">
         
-        <img src="${item.image || 'biryani1.jpg'}"
-             class="w-full h-full object-cover group-hover:scale-110 transition duration-700"/>
+    <img src="${item.image || 'biryani1.jpg'}"
+         class="w-full h-full object-cover group-hover:scale-110 transition duration-700"/>
 
-        <!-- OVERLAY -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
+    <!-- OVERLAY -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
 
-        <!-- TITLE -->
-        <h3 class="absolute bottom-3 left-5 right-5 text-white font-heading text-lg font-bold">
-            ${item.name}
-        </h3>
-
+    <!-- 🔥 STATE BADGE (TOP RIGHT) -->
+    <div style="
+        position:absolute;
+        top:12px;
+        right:12px;
+        padding:6px 12px;
+        border-radius:999px;
+        font-size:11px;
+        font-weight:600;
+        background:linear-gradient(135deg,#ffcc70,#D4581C,#B83A0D);
+        color:white;
+        box-shadow:0 4px 12px rgba(212,88,28,0.5);
+        backdrop-filter:blur(6px);
+        letter-spacing:0.5px;
+        z-index:10;
+    ">
+        ● ${getStateFromName(item.name)}
     </div>
+
+    <!-- TITLE -->
+    <h3 class="absolute bottom-3 left-5 right-5 text-white font-heading text-lg font-bold">
+        ${item.name}
+    </h3>
+
+</div>
 
     <!-- BODY -->
     <div class="relative bg-gradient-to-b from-[#4a2c1f] via-[#2A1B14] to-[#1c110c] 
