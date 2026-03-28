@@ -587,9 +587,19 @@
     </label>
 
     <div class="flex gap-3">
-      <button type="button" class="option-btn" onclick="selectOption(this, 'protein', 'type', 'Chicken')">Chicken</button>
-      <button type="button" class="option-btn" onclick="selectOption(this, 'protein', 'type', 'Mutton')">Mutton</button>
+    <button type="button"
+  onclick="selectOption(this, 'protein', 'type', 'Chicken')"
+  class="option-btn"
+  style="background:white; color:#2A1B14; border:1px solid #ddd;">
+  Chicken
+</button>
     </div>
+      <button type="button"
+  onclick="selectOption(this, 'protein', 'type', 'Mutton')"
+  class="option-btn"
+  style="background:white; color:#2A1B14; border:1px solid #ddd;">
+  Mutton
+</button>
 
     <input type="hidden" id="protein-input" required>
   </div>
@@ -601,9 +611,9 @@
     </label>
 
     <div class="flex gap-3 flex-wrap">
-      <button type="button" class="option-btn" onclick="selectOption(this, 'size', 'type', 'Safar - 1 Person')">Safar - 1</button>
-      <button type="button" class="option-btn" onclick="selectOption(this, 'size', 'type', 'Mehfil - 2 People')">Mehfil - 2</button>
-      <button type="button" class="option-btn" onclick="selectOption(this, 'size', 'type', 'Dawaat - 3 People')">Dawaat - 3</button>
+      <button type="button" class="option-btn"  style="background:white; color:#2A1B14; border:1px solid #ddd;"> onclick="selectOption(this, 'size', 'type', 'Safar - 1 Person')">Safar - 1</button>
+      <button type="button" class="option-btn" style="background:white; color:#2A1B14; border:1px solid #ddd;">onclick="selectOption(this, 'size', 'type', 'Mehfil - 2 People')">Mehfil - 2</button>
+      <button type="button" class="option-btn"  style="background:white; color:#2A1B14; border:1px solid #ddd;"> onclick="selectOption(this, 'size', 'type', 'Dawaat - 3 People')">Dawaat - 3</button>
     </div>
 
     <input type="hidden" id="size-input" required>
