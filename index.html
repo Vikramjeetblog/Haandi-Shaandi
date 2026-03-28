@@ -1494,55 +1494,47 @@ swiper = new Swiper(".mySwiper", {
 
 
 menuGrid.innerHTML += `
-<div>
+<div class="relative bg-gradient-to-b from-[#4a2c1f] via-[#2A1B14] to-[#1c110c] 
+            rounded-[40px] overflow-hidden shadow-xl border border-orange/10">
 
-    <!-- IMAGE -->     
-   <div class="h-56 relative overflow-hidden rounded-t-[90px]">
+    <!-- IMAGE -->
+    <div class="h-56 relative overflow-hidden">
 
-    ${
-      category === 'Haandi Biryani' && getStateFromName(item.name)
-      ? `
-        <div style="
-            position:absolute;
-            top:10px;
-            right:10px;
-            z-index:20;
-            padding:5px 10px;
-            border-radius:999px;
-            font-size:10px;
-            font-weight:600;
+        ${
+          category === 'Haandi Biryani' && getStateFromName(item.name)
+          ? `
+            <div style="
+                position:absolute;
+                top:10px;
+                right:10px;
+                z-index:20;
+                padding:6px 12px;
+                border-radius:999px;
+                font-size:11px;
+                font-weight:600;
+                background:#F4EAD8;
+                color:#B83A0D;
+                border:1px solid rgba(184,58,13,0.25);
+                box-shadow:0 4px 10px rgba(0,0,0,0.25);
+            ">
+                📍 ${getStateFromName(item.name)}
+            </div>
+          `
+          : ''
+        }
 
-            background:#F4EAD8;
-            color:#B83A0D;
+        <img src="${item.image}" 
+             class="w-full h-full object-cover"/>
 
-            border:1px solid rgba(184,58,13,0.25);
-            box-shadow:0 4px 10px rgba(0,0,0,0.2);
-        ">
-            📍 ${getStateFromName(item.name)}
-        </div>
-      `
-      : ''
-    }
-
-    <img src="${item.image}" 
-         class="w-full h-full object-cover"/>
-
-</div>
-
-
-   
-    <!-- TITLE -->
-    <h3 class="absolute bottom-3 left-5 right-5 text-white font-heading text-lg font-bold">
-        ${item.name}
-    </h3>
-
-</div>
+        <!-- TITLE OVER IMAGE -->
+        <h3 class="absolute bottom-3 left-5 right-5 text-white font-heading text-lg font-bold">
+            ${item.name}
+        </h3>
+    </div>
 
     <!-- BODY -->
-    <div class="relative bg-gradient-to-b from-[#4a2c1f] via-[#2A1B14] to-[#1c110c] 
-                rounded-b-[40px] px-5 pt-5 pb-6 shadow-xl border border-orange/10">
+    <div class="px-5 pt-5 pb-6">
 
-        <!-- DESC -->
         <p class="text-cream/70 text-sm text-center mb-5 leading-relaxed">
             ${item.desc}
         </p>
@@ -1563,7 +1555,6 @@ menuGrid.innerHTML += `
             : item.category === 'BBQs'
             ? `
             <div class="text-center mt-4">
-
                 <span class="inline-block mb-3 text-xs px-3 py-1 rounded-full bg-red/20 text-red-400 font-semibold">
                     🔥 Flame Grilled
                 </span>
@@ -1575,19 +1566,16 @@ menuGrid.innerHTML += `
                 <button class="bg-gradient-to-r from-orange to-red text-white px-6 py-2 rounded-full text-sm font-semibold shadow hover:scale-105 transition">
                     Experience the Grill
                 </button>
-
             </div>
             `
             : `
-            <!-- BIRYANI UI -->
-
             ${
                 item.special
                 ? `
                 <div class="text-center mb-4">
-                   <span class="bg-orange/20 text-orange px-3 py-1 rounded-full text-xs font-semibold">
-    ⭐ Special
-</span>
+                    <span class="bg-orange/20 text-orange px-3 py-1 rounded-full text-xs font-semibold">
+                        ⭐ Special
+                    </span>
                 </div>
                 `
                 : ''
@@ -1603,7 +1591,6 @@ menuGrid.innerHTML += `
                 </div>
                 `
                 : `
-                <!-- PROTEIN -->
                 <div class="mb-4">
                     <p class="text-[11px] text-cream/50 mb-2 text-center tracking-wide">
                         CHOOSE PROTEIN
@@ -1611,27 +1598,21 @@ menuGrid.innerHTML += `
 
                     <div class="flex justify-center gap-2">
                         <button onclick="selectOption(this, '${item.name}', 'protein', 'Chicken')" 
-                            class="option-btn active-btn">
-                            Chicken
-                        </button>
+                            class="option-btn active-btn">Chicken</button>
 
                         <button onclick="selectOption(this, '${item.name}', 'protein', 'Mutton')" 
-                            class="option-btn">
-                            Mutton
-                        </button>
+                            class="option-btn">Mutton</button>
                     </div>
                 </div>
                 `
             }
 
-            <!-- HAANDI SIZE -->
             <div>
                 <p class="text-[11px] text-cream/50 mb-2 text-center tracking-wide">
                     CHOOSE HAANDI
                 </p>
 
                 <div class="flex justify-center gap-2 flex-wrap">
-
                     <button onclick="selectOption(this, '${item.name}', 'size', 'Safar')" 
                         class="option-btn active-btn">
                         Safar <span class="text-[10px] opacity-70">• 1 Person</span>
@@ -1646,17 +1627,12 @@ menuGrid.innerHTML += `
                         class="option-btn">
                         Dawaati <span class="text-[10px] opacity-70">• 3 People</span>
                     </button>
-
                 </div>
             </div>
             `
         }
 
     </div>
-
-    <!-- SHADOW -->
-    <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 
-                w-32 h-8 bg-black/20 blur-xl rounded-full"></div>
 
 </div>
 `;
