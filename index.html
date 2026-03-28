@@ -1373,11 +1373,7 @@ swiper = new Swiper(".mySwiper", {
 
 ];
 
-${category === 'Haandi Biryani' ? `
-<div style="...badge styles...">
-   ● ${getStateFromName(item.name)}
-</div>
-` : ''}
+
 
         const regions = ['Kashmir', 'Lucknow', 'Assam', 'Kolkata', 'Hyderabad', 'Karnataka', 'TamilNadu', 'Kerala'];
 
@@ -1505,34 +1501,38 @@ menuGrid.innerHTML += `
 
 <div class="relative">
 
-    <!-- BADGE OUTSIDE -->
-    <div style="
-        position:absolute;
-        top:12px;
-        right:12px;
-        z-index:30;
-        padding:6px 12px;
-        border-radius:999px;
-        font-size:11px;
-        font-weight:600;
+    ${
+      category === 'Haandi Biryani' && getStateFromName(item.name)
+      ? `
+        <div style="
+            position:absolute;
+            top:12px;
+            right:12px;
+            z-index:30;
+            padding:6px 12px;
+            border-radius:999px;
+            font-size:11px;
+            font-weight:600;
 
-        background:rgba(244,234,216,0.95);
-        color:#B83A0D;
+            background:rgba(244,234,216,0.95);
+            color:#B83A0D;
 
-        border:1px solid rgba(184,58,13,0.3);
-        box-shadow:0 6px 18px rgba(0,0,0,0.25);
-        backdrop-filter:blur(6px);
-    ">
-        ● ${getStateFromName(item.name)}
-    </div>
+            border:1px solid rgba(184,58,13,0.3);
+            box-shadow:0 6px 18px rgba(0,0,0,0.25);
+            backdrop-filter:blur(6px);
+        ">
+            ● ${getStateFromName(item.name)}
+        </div>
+      `
+      : ''
+    }
 
-    <!-- IMAGE -->
     <div class="h-56 overflow-hidden rounded-t-[90px]">
-        <img src="${item.image}"
-             class="w-full h-full object-cover"/>
+        <img src="${item.image}" class="w-full h-full object-cover"/>
     </div>
 
 </div>
+   
     <!-- TITLE -->
     <h3 class="absolute bottom-3 left-5 right-5 text-white font-heading text-lg font-bold">
         ${item.name}
