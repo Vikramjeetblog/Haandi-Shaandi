@@ -1500,23 +1500,30 @@ menuGrid.innerHTML += `
 
     <!-- OVERLAY -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
+    <!--  STATE BADGE (TOP RIGHT) -->
+   <div style="
+    position:absolute;
+    top:16px;
+    right:16px;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:600;
 
-    <!-- 🔥 STATE BADGE (TOP RIGHT) -->
-    <div style="
-        position:absolute;
-        top:12px;
-        right:12px;
-        padding:6px 12px;
-        border-radius:999px;
-        font-size:11px;
-        font-weight:600;
-        background:linear-gradient(135deg,#ffcc70,#D4581C,#B83A0D);
-        color:white;
-        box-shadow:0 4px 12px rgba(212,88,28,0.5);
-        backdrop-filter:blur(6px);
-        letter-spacing:0.5px;
-        z-index:10;
-    ">
+    background:rgba(244,234,216,0.95);
+    color:#B83A0D;
+
+    border:1px solid rgba(184,58,13,0.3);
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+
+    backdrop-filter:blur(6px);
+    letter-spacing:0.5px;
+
+    z-index:20;
+    transform:translateZ(0);
+">
+    ● ${getStateFromName(item.name)}
+</div>
         ● ${getStateFromName(item.name)}
     </div>
 
