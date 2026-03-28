@@ -578,47 +578,20 @@
         
     </select>
 </div>
- <div class="space-y-4">
+<div>
+  <label class="block text-sm font-medium text-dark mb-2">
+    Choose Protein <span style="color:red">*</span>
+  </label>
 
-  <!-- PROTEIN -->
-  <div>
-    <label class="block text-sm font-medium text-dark mb-2">
-      Choose Protein <span style="color:red">*</span>
-    </label>
+  <select id="protein-select" required
+    class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-terracotta text-dark">
+    
+    <option value="">Select Protein</option>
+    <option value="Chicken">Chicken</option>
+    <option value="Mutton">Mutton</option>
 
-    <div class="flex gap-3">
-    <button type="button"
-  onclick="selectOption(this, 'protein', 'type', 'Chicken')"
-    class="option-btn"
-  style="background:white; color:#2A1B14; border:1px solid #ddd;">
-  Chicken
-</button>
-    </div>
-      <button type="button"
-  onclick="selectOption(this, 'protein', 'type', 'Mutton')"
-   class="option-btn"
-  style="background:white; color:#2A1B14; border:1px solid #ddd;">
-  Mutton
-</button>
-
-    <input type="hidden" id="protein-input" required>
-  </div>
-
-  <!-- SIZE -->
-  <div>
-    <label class="block text-sm font-medium text-dark mb-2">
-      Choose Size <span style="color:red">*</span>
-    </label>
-
-    <div class="flex gap-3 flex-wrap">
-      <button type="button"   class="option-btn"  onclick="selectOption(this, 'size', 'type', 'Safar - 1 Person')"  style="background:white; color:#2A1B14; border:1px solid #ddd;">Safar - 1</button>
-      <button type="button"   class="option-btn" onclick="selectOption(this, 'size', 'type', 'Mehfil - 2 People')"  style="background:white; color:#2A1B14; border:1px solid #ddd;">Mehfil - 2</button>
-      <button type="button"   class="option-btn" onclick="selectOption(this, 'size', 'type', 'Dawaat - 3 People')"  style="background:white; color:#2A1B14; border:1px solid #ddd;">Dawaat - 3</button>
-    </div>
-
-    <input type="hidden" id="size-input" required>
-  </div>
-
+  </select>
+</div>
                         <button type="submit" class="w-full bg-terracotta text-cream py-4 rounded-xl font-heading font-bold text-lg hover:bg-red transition-colors shadow-lg flex items-center justify-center gap-2">Join the List <i data-lucide="arrow-right" class="w-5 h-5"></i></button>
 
                    
@@ -1665,6 +1638,8 @@ form.addEventListener('submit', async function(e) {
     const phone = this.querySelectorAll('input[type="tel"]')[0].value;
     const whatsapp = this.querySelectorAll('input[type="tel"]')[1].value;
     const biryani = document.getElementById('biryani-select').value;
+    const protein = document.getElementById("protein-select").value;
+    const size = document.getElementById("size-select").value;
 
     try {
         await fetch("https://script.google.com/macros/s/AKfycbzmcyZNuZoHXDD6z7_U5iX6yA0siGjyJB3CHjyrmKB08SWcrtz6zCcw7sWWwlsIScTP/exec", {
