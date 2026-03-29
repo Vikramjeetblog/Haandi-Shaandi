@@ -377,6 +377,15 @@
   font-weight: 700;
   text-shadow: 0 0 10px rgba(212,88,28,0.6);
 }
+ #region-grid .region-card {
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+
+#region-grid .region-card.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
     </style>
 </head>
 <body class="font-body selection:bg-terracotta selection:text-cream">
@@ -483,8 +492,8 @@
 </p>
                 <p class="text-lg text-cream/80 leading-relaxed">From royal kitchens to street-side legends — every region of India has its own biryani story. Haandi Shaandi brings these diverse, authentic flavors together under one roof.</p>
             </div>
-            <div class="flex gap-4 overflow-x-auto px-2 pb-4 
-snap-x snap-mandatory scroll-smooth" id="regions-grid"></div>
+            <div class="flex gap-6 overflow-x-auto px-6 pb-6 
+snap-x snap-mandatory scroll-smooth items-center" id="regions-grid"></div>
         </div>
         <svg class="absolute inset-0 w-full h-full opacity-5 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"/></pattern>
@@ -763,6 +772,26 @@ setTimeout(() => {
   const el = document.getElementById("regions-grid");
   el.scrollLeft = 100;
 }, 1000);
+        const container = document.getElementById("regions-grid");
+
+function updateCenterCard() {
+  const cards = document.querySelectorAll(".region-card");
+  const center = window.innerWidth / 2;
+
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+
+    if (Math.abs(center - cardCenter) < 80) {
+      card.classList.add("active");
+    } else {
+      card.classList.remove("active");
+    }
+  });
+}
+
+container.addEventListener("scroll", updateCenterCard);
+window.addEventListener("load", updateCenterCard);
 
 function goToSection(sectionId){
     closeModal();
@@ -1413,30 +1442,31 @@ swiper = new Swiper(".mySwiper", {
         const regionsGrid = document.getElementById('regions-grid');
         regions.forEach((region, index) => {
             const delay = `delay-${(index % 4) * 100}`;
-          regionsGrid.innerHTML += `
+         regionsGrid.innerHTML += `
 <div onclick="handleStateClick('${region}')"
-class="region-card flex-shrink-0 w-[160px] md:w-[200px] 
-snap-center cursor-pointer group
+class="region-card flex-shrink-0 snap-center 
+w-[220px] md:w-[260px]
 
-bg-cream/5 border border-orange/30 
-rounded-xl p-5 text-center
+bg-gradient-to-b from-[#3b2318] to-[#1c110c]
+border border-orange/20 rounded-2xl p-6 text-center
 
-transition-all duration-300
-hover:bg-orange/20 hover:scale-105
-active:scale-95">
+transition-all duration-500 cursor-pointer
 
+hover:scale-105 active:scale-95">
+
+    <!-- ICON -->
     <i data-lucide="map-pin"
-       class="mx-auto text-orange mb-3 w-7 h-7 
-       group-hover:scale-125 transition"></i>
+       class="mx-auto text-orange mb-4 w-8 h-8"></i>
 
-    <h3 class="font-heading text-lg text-cream">
+    <!-- TITLE -->
+    <h3 class="font-heading text-xl text-cream mb-2">
         ${region}
     </h3>
 
-    <!-- 👇 CTA -->
-    <p class="text-[11px] text-orange mt-2 font-semibold">
-        Tap →
-    </p>
+    <!-- CTA -->
+    <span class="text-sm text-orange font-semibold opacity-80">
+        Explore →
+    </span>
 
 </div>`;
                
