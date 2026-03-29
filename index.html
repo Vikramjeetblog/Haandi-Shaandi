@@ -1623,26 +1623,31 @@ menuGrid.innerHTML += `
             `
             : item.category === 'BBQs'
             ? `
-            <div class="text-center mt-4">
-                <span class="inline-flex items-center gap-1 
-px-3 py-1 rounded-full text-xs font-medium
-bg-[#2A1B14] text-[#FFCC70]/80 
-border border-[#FFCC70]/30">
-                    🔥 Flame Grilled
-                </span>
+           <div class="text-center mt-6 flex flex-col items-center">
 
-                <p class="text-xs text-cream/40 tracking-wide">
-                    SERVED HOT FROM GRILL
-                </p>
+    <!-- Badge -->
+    <span class="inline-flex items-center gap-1 
+    px-3 py-1 rounded-full text-xs font-medium
+    bg-[#2A1B14] text-[#FFCC70]/80 
+    border border-[#FFCC70]/30 mb-3">
+        🔥 Flame Grilled
+    </span>
 
-                <button class="bg-gradient-to-r 
-from-[#FFCC70] to-[#D4581C] 
-text-[#1C110C] font-semibold 
-px-4 py-3 rounded-full
-shadow-md hover:scale-105 transition">
-                    Experience the Grill
-                </button>
-            </div>
+    <!-- Sub text -->
+    <p class="text-xs text-cream/40 tracking-wide mb-6">
+        SERVED HOT FROM GRILL
+    </p>
+
+    <!-- Button -->
+    <button class="bg-gradient-to-r 
+    from-[#FFCC70] to-[#D4581C] 
+    text-[#1C110C] font-semibold 
+    px-5 py-3 rounded-full
+    shadow-md hover:scale-105 transition">
+        Experience the Grill
+    </button>
+
+</div>
             `
             : `
             ${
