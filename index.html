@@ -852,11 +852,13 @@ function renderMenu() {
         <div class="relative">
           <img src="${item.image}" class="w-full h-52 object-cover"/>
 
-          <span class="absolute top-3 left-3 text-xs px-2 py-1 rounded-full ${
-            item.type === 'veg' ? 'bg-green-500' : 'bg-red-500'
-          } text-white">
-            ${item.type === 'veg' ? '🌱 Veg' : '🍗 Non-Veg'}
-          </span>
+         <span class="absolute top-3 left-3 text-xs px-2 py-1 rounded-full ${
+  item.type === 'veg' 
+    ? 'bg-green-500' 
+    : 'bg-gradient-to-r from-red-600 to-orange-500 shadow-md'
+} text-white">
+  ${item.type === 'veg' ? '🌱 Veg' : '🍗 Non-Veg'}
+</span>
         </div>
 
         <div class="p-5 text-center text-cream">
