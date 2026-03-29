@@ -577,6 +577,28 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
             </div>
         </div>
 
+        <!-- VEG FILTER -->
+<div class="flex justify-center mb-10">
+  <div class="bg-white p-2 rounded-full shadow flex gap-2">
+
+    <button onclick="filterType('all')" id="filter-all"
+      class="filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-terracotta text-white">
+      All
+    </button>
+
+    <button onclick="filterType('veg')" id="filter-veg"
+      class="filter-btn px-5 py-2 rounded-full text-sm font-semibold text-dark hover:bg-green-100">
+      Veg 🌱
+    </button>
+
+    <button onclick="filterType('nonveg')" id="filter-nonveg"
+      class="filter-btn px-5 py-2 rounded-full text-sm font-semibold text-dark hover:bg-red-100">
+      Non-Veg 🍗
+    </button>
+
+  </div>
+</div>
+
         <!-- MENU GRID -->
         <div id="menu-grid"
             class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto items-stretch reveal-up transition-all duration-300">
@@ -793,6 +815,74 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+
+let currentType = "all";
+
+let currentCategory = "Haandi Biryani";
+
+function filterMenu(category) {
+  currentCategory = category;
+
+  document.querySelectorAll(".menu-tab").forEach(btn => {
+    btn.classList.remove("bg-terracotta", "text-cream", "scale-105");
+  });
+
+  document.getElementById(`tab-${category}`)
+    .classList.add("bg-terracotta", "text-cream", "scale-105");
+
+  renderMenu();
+}
+
+function renderMenu() {
+  const grid = document.getElementById("menu-grid");
+
+  const filtered = menuData.filter(item => {
+    return (
+      (currentCategory === "all" || item.category === currentCategory) &&
+      (currentType === "all" || item.type === currentType)
+    );
+  });
+
+  grid.innerHTML = "";
+
+  filtered.forEach(item => {
+    grid.innerHTML += `
+      <div class="bg-[#2A1B14] rounded-2xl overflow-hidden shadow-lg">
+
+        <img src="${item.image}" class="w-full h-52 object-cover"/>
+
+        <div class="p-5 text-center text-cream">
+
+          <!-- TYPE BADGE -->
+          <span class="text-xs px-2 py-1 rounded-full ${
+            item.type === 'veg' ? 'bg-green-500' : 'bg-red-500'
+          } text-white">
+            ${item.type === 'veg' ? '🌱 Veg' : '🍗 Non-Veg'}
+          </span>
+
+          <h3 class="mt-3 font-heading text-lg">${item.name}</h3>
+
+          <p class="text-sm text-cream/70 mt-2">${item.desc}</p>
+
+        </div>
+      </div>
+    `;
+  });
+}
+
+function filterType(type) {
+  currentType = type;
+
+  // active button style
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("bg-terracotta", "text-white");
+  });
+
+  document.getElementById(`filter-${type}`)
+    .classList.add("bg-terracotta", "text-white");
+
+  renderMenu(); 
+}
 let currentOpenState = null;
 let hoverTimeout;
 
@@ -1290,90 +1380,105 @@ swiper = new Swiper(".mySwiper", {
     name: 'Haandi Assam Kamrupi Biryani',
     category: 'Haandi Biryani',
     image: 'haandi12.webp',
-    desc: 'A light, aromatic Assamese biryani with subtle spices, fresh herbs, and a delicate earthy flavor.'
+    desc: 'A light, aromatic Assamese biryani with subtle spices, fresh herbs, and a delicate earthy flavor.',
+     type: 'nonveg' 
   },
          {
     name: 'Dum-e-Fish Haandi Shaandi',
     category: 'Curries',
     image: 'curry3.png',
     desc: 'Tender fish pieces cooked gently in a mustard and yogurt blend.'
+    
   },
   {
     name: 'Haandi Din-di-Gul Biryani',
     category: 'Haandi Biryani',
     image: 'haandi6.png',
-    desc: 'Seeraga samba rice with a distinct peppery, tangy southern flair.'
+    desc: 'Seeraga samba rice with a distinct peppery, tangy southern flair.',
+     type: 'nonveg' 
   },
         {
     name: 'Mughal Haandi Mutton',
     category: 'Curries',
     image: 'haandi14.jpg',
-    desc: 'Rich, creamy Mughlai mutton cooked in a flavorful tomato-based gravy with aromatic spices'
+    desc: 'Rich, creamy Mughlai mutton cooked in a flavorful tomato-based gravy with aromatic spices',
+  
   },
   {
     name: 'Haandi Donne Biryani',
     category: 'Haandi Biryani',
     image: 'haandi5.avif',
-    desc: 'Karnataka style biryani cooked with fresh mint, coriander, and green chilies.'
+    desc: 'Karnataka style biryani cooked with fresh mint, coriander, and green chilies.',
+     type: 'nonveg' 
   },
    {
     name: 'Haandi Hyderabadi Dum Biryani',
     category: 'Haandi Biryani',
     image: 'hero1.png',
     desc: 'Rich, spicy, and deeply flavorful, cooked in authentic kacchi dum style.'
+    type: 'nonveg'  
   },
    
   {
   name: 'Haandi Kathal Biryani',
   category: 'Haandi Biryani',
   image: 'haandi11.avif',
-  desc: 'Jackfruit marinated in robust spices, mimicking the texture of meat perfectly.'
+  desc: 'Jackfruit marinated in robust spices, mimicking the texture of meat perfectly.',
+ type :'veg'
+
 },
    {
     name: 'Haandi Kerala Biryani',
     category: 'Haandi Biryani',
     image: 'haandi7.jpg',
-    desc: 'Made with short-grain kaima rice, enriched with cashew, raisins, and ghee.'
+    desc: 'Made with short-grain kaima rice, enriched with cashew, raisins, and ghee.',
+    type: 'nonveg' 
   },
   {
     name: 'Haandi Kolkata Biryani',
     category: 'Haandi Biryani',
     image: 'haandi8.jpg',
-    desc: 'Aromatic basmati, subtle spices, tender chicken, and the signature potato.'
+    desc: 'Aromatic basmati, subtle spices, tender chicken, and the signature potato.'.
+    type: 'nonveg' 
   },
  
   {
     name: 'Haandi Lucknowi Biryani',
     category: 'Haandi Biryani',
     image: 'haandi2.webp',
-    desc: 'Mild, fragrant, and royal awadhi flavors with melt-in-the-mouth meat.'
+    desc: 'Mild, fragrant, and royal awadhi flavors with melt-in-the-mouth meat.',
+    type: 'nonveg' 
   },
   {
   name: 'Haandi Malai Paneer Biryani',
   category: 'Haandi Biryani',
   image: 'haandi10.jpg',
-  desc: 'Soft paneer cubes layered with creamy, fragrant basmati rice.'
+  desc: 'Soft paneer cubes layered with creamy, fragrant basmati rice.',
+  type: 'veg' 
 },
 {
   name: ' Haandi Kashmiri Biryani',
   category: 'Haandi Biryani',
   image: 'haandi9.png',
   desc: 'Infused with saffron, dry fruits, and a hint of sweetness.',
-  special: true
+  special: true,
+  type: 'nonveg' 
 },
 {
   name: ' Haandi Goan Fish  Biryani',
   category: 'Haandi Biryani',
   image: 'haandi17.png',
   desc: 'Fresh fish layered with fragrant rice, infused with coconut, kokum, and coastal Goan spices for a bold, aromatic experience.',
-  special: true
+  special: true,
+  type: 'nonveg' 
 },
 {
   name: ' Haandi Royal Mughal Biryani',
   category: 'Haandi Biryani',
   image: 'haandi13.png',
   desc: 'Rich and royal biryani with dry fruits, saffron, and Mughlai flavors.',
-  special: true
+  special: true,
+  type: 'nonveg' 
 },
 
 
