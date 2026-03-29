@@ -1611,15 +1611,29 @@ menuGrid.innerHTML += `
         ${
             item.category === 'Curries'
             ? `
-            <div class="text-center mt-4">
-                <span class="inline-block mb-3 text-xs px-3 py-1 rounded-full bg-orange/20 text-orange font-semibold">
-                    Chef Special
-                </span>
+           <div class="mt-6 flex flex-col items-center">
 
-                <button class="bg-orange text-white px-6 py-2 rounded-full text-sm font-semibold shadow hover:scale-105 transition">
-                    Try This Haandi
-                </button>
-            </div>
+    <!-- Badge -->
+    <span class="text-[11px] px-3 py-1 rounded-full 
+    bg-[#FFCC70]/10 text-[#FFCC70] 
+    border border-[#FFCC70]/30 
+    mb-4 tracking-wide">
+
+        ⭐ Chef Special
+    </span>
+
+    <!-- Button -->
+    <button class="bg-gradient-to-r 
+    from-[#D4581C] to-[#B83A0D] 
+    text-white px-6 py-2.5 rounded-full 
+    text-sm font-semibold
+    shadow-[0_6px_20px_rgba(212,88,28,0.3)]
+    hover:scale-105 transition">
+
+        Try This Haandi Curry
+    </button>
+
+</div>
             `
             : item.category === 'BBQs'
             ? `
