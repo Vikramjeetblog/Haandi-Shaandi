@@ -1162,7 +1162,7 @@ function closeModal() {
 
 // State click modal open 
 function handleStateClick(state) {
-
+  document.getElementById("modal-title").innerText = "Loading...";
   const data = stateData[state];
   if (!data) return;
 
@@ -1466,7 +1466,7 @@ swiper = new Swiper(".mySwiper", {
   regionsGrid.innerHTML += `
 <div 
   onmouseenter="openStateHover('${region}')"
-  document.getElementById("modal-title").innerText = "Loading...";
+  
   onclick="handleStateClick('${region}')"
   class="group cursor-pointer rounded-xl p-[1px] 
   bg-gradient-to-br from-[#D4581C] to-[#B83A0D]">
