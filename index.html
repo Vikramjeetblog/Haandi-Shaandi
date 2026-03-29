@@ -873,8 +873,11 @@ function renderMenu() {
               item.type === "nonveg"
                 ? `
                 <div class="flex justify-center gap-2">
-                  <button class="option-btn active-btn">Chicken</button>
-                  <button class="option-btn">Mutton</button>
+                  <button onclick="selectOption(this, '${item.name}', 'protein', 'chicken')" 
+  class="option-btn active-btn">Chicken</button>
+
+<button onclick="selectOption(this, '${item.name}', 'protein', 'mutton')" 
+  class="option-btn">Mutton</button>
                 </div>
               `
                 : `
@@ -886,9 +889,14 @@ function renderMenu() {
             <div class="space-y-2">
               <p class="text-[10px] text-cream/50 tracking-wide">CHOOSE SIZE</p>
               <div class="flex justify-center gap-2 flex-wrap">
-                <button class="option-btn active-btn">Safar · 1</button>
-                <button class="option-btn">Mehfil · 2</button>
-                <button class="option-btn">Dawaat · 3</button>
+               <button onclick="selectOption(this, '${item.name}', 'size', 'safar')" 
+  class="option-btn active-btn">Safar · 1</button>
+
+<button onclick="selectOption(this, '${item.name}', 'size', 'mehfil')" 
+  class="option-btn">Mehfil · 2</button>
+
+<button onclick="selectOption(this, '${item.name}', 'size', 'dawaat')" 
+  class="option-btn">Dawaat · 3</button>
               </div>
             </div>
 
