@@ -1413,19 +1413,22 @@ swiper = new Swiper(".mySwiper", {
 
         // --- DOM RENDER FUNCTIONS ---
         const regionsGrid = document.getElementById('regions-grid');
-        regions.forEach((region, index) => {
-            const delay = `delay-${(index % 4) * 100}`;
-<div onclick="handleStateClick('${region}')"
-     class="reveal-up ${delay} bg-cream/5 border border-orange/30 rounded-xl p-6 text-center hover:bg-orange/10 transition-colors cursor-pointer group">
+  regions.forEach((region, index) => {
+    const delay = `delay-${(index % 4) * 100}`;
 
-    <i data-lucide="map-pin"
-       class="mx-auto text-orange mb-3 group-hover:scale-110 transition-transform w-7 h-7"></i>
+    regionsGrid.innerHTML += `
+    <div onclick="handleStateClick('${region}')"
+         class="reveal-up ${delay} bg-cream/5 border border-orange/30 rounded-xl p-6 text-center hover:bg-orange/10 transition-colors cursor-pointer group">
 
-    <h3 class="font-heading text-xl font-semibold text-cream">
-        ${region}
-    </h3>
+        <i data-lucide="map-pin"
+           class="mx-auto text-orange mb-3 group-hover:scale-110 transition-transform w-7 h-7"></i>
 
-</div>`
+        <h3 class="font-heading text-xl font-semibold text-cream">
+            ${region}
+        </h3>
+
+    </div>`;
+});
                
         });
         refreshIcons();
