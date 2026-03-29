@@ -793,24 +793,25 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        let currentOpenState = null;
+let currentOpenState = null;
+let hoverTimeout;
 
 function openStateHover(state) {
-  if (currentOpenState === state) return;
+  clearTimeout(hoverTimeout);
 
-  currentOpenState = state;
-  handleStateClick(state);
+  hoverTimeout = setTimeout(() => {
+    if (currentOpenState === state) return;
+
+    currentOpenState = state;
+    handleStateClick(state);
+  }, 250); // 👈 perfect delay
 }
 
 function closeModal() {
   document.getElementById("state-modal").classList.remove("show");
   currentOpenState = null;
 }
-setTimeout(() => {
-  const el = document.getElementById("regions-grid");
-  el.scrollLeft = 100;
-}, 1000);
-        
+
 
 function goToSection(sectionId){
     closeModal();
@@ -1465,6 +1466,7 @@ swiper = new Swiper(".mySwiper", {
   regionsGrid.innerHTML += `
 <div 
   onmouseenter="openStateHover('${region}')"
+  document.getElementById("modal-title").innerText = "Loading...";
   onclick="handleStateClick('${region}')"
   class="group cursor-pointer rounded-xl p-[1px] 
   bg-gradient-to-br from-[#D4581C] to-[#B83A0D]">
@@ -1482,10 +1484,11 @@ swiper = new Swiper(".mySwiper", {
         ${region}
     </h3>
 
-    <p class="text-xs text-[#FFCC70]/80 mt-2 
-       opacity-0 translate-y-1
-       group-hover:opacity-100 group-hover:translate-y-0
-       transition-all duration-300">
+
+    <p class="text-xs text-[#FFCC70]/70 mt-2 
+       flex items-center justify-center gap-1
+       transition-all duration-300
+       group-hover:text-[#FFCC70] group-hover:translate-x-1">
         Explore →
     </p>
 
