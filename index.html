@@ -793,6 +793,19 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+        let currentOpenState = null;
+
+function openStateHover(state) {
+  if (currentOpenState === state) return;
+
+  currentOpenState = state;
+  handleStateClick(state);
+}
+
+function closeModal() {
+  document.getElementById("state-modal").classList.remove("show");
+  currentOpenState = null;
+}
 setTimeout(() => {
   const el = document.getElementById("regions-grid");
   el.scrollLeft = 100;
@@ -1449,15 +1462,17 @@ swiper = new Swiper(".mySwiper", {
   regions.forEach((region, index) => {
     const delay = `delay-${(index % 4) * 100}`;
 
-   regionsGrid.innerHTML += `
-<div onclick="handleStateClick('${region}')"
-     class="group cursor-pointer rounded-xl p-[1px] 
-bg-gradient-to-br from-[#D4581C] to-[#B83A0D]">
+  regionsGrid.innerHTML += `
+<div 
+  onmouseenter="openStateHover('${region}')"
+  onclick="handleStateClick('${region}')"
+  class="group cursor-pointer rounded-xl p-[1px] 
+  bg-gradient-to-br from-[#D4581C] to-[#B83A0D]">
 
   <!-- INNER CARD -->
   <div class="bg-[#2A1B14]/90 backdrop-blur-md 
-rounded-xl p-6 text-center
-hover:bg-[#2A1B14] transition">
+  rounded-xl p-6 text-center
+  hover:bg-[#2A1B14] transition">
 
     <i data-lucide="map-pin"
        class="mx-auto text-[#FFCC70] mb-3 w-7 h-7 
@@ -1468,13 +1483,16 @@ hover:bg-[#2A1B14] transition">
     </h3>
 
     <p class="text-xs text-[#FFCC70]/80 mt-2 
-       group-hover:opacity-100 transition">
+       opacity-0 translate-y-1
+       group-hover:opacity-100 group-hover:translate-y-0
+       transition-all duration-300">
         Explore →
     </p>
 
   </div>
 </div>
 `;
+
 });
                
    
