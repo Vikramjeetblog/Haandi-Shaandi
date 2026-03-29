@@ -832,6 +832,7 @@ function filterMenu(category) {
 
   renderMenu();
 }
+
 function renderMenu() {
   const grid = document.getElementById("menu-grid");
 
@@ -848,11 +849,9 @@ function renderMenu() {
     grid.innerHTML += `
       <div class="bg-[#2A1B14] rounded-2xl overflow-hidden shadow-lg">
 
-        <!-- IMAGE -->
         <div class="relative">
           <img src="${item.image}" class="w-full h-52 object-cover"/>
 
-          <!-- BADGE -->
           <span class="absolute top-3 left-3 text-xs px-2 py-1 rounded-full ${
             item.type === 'veg' ? 'bg-green-500' : 'bg-red-500'
           } text-white">
@@ -860,14 +859,12 @@ function renderMenu() {
           </span>
         </div>
 
-        <!-- CONTENT -->
         <div class="p-5 text-center text-cream">
 
           <h3 class="font-heading text-lg">${item.name}</h3>
 
           <p class="text-sm text-cream/70 mt-2">${item.desc}</p>
 
-          <!-- 🔥 BUTTON AREA -->
           <div class="mt-4 space-y-3">
 
             ${
@@ -879,18 +876,32 @@ function renderMenu() {
                 </div>
               `
                 : `
-                <div class="flex justify-center">
-                  <span class="text-xs text-green-400">Pure Veg</span>
-                </div>
+                <div class="text-green-400 text-xs">Pure Veg</div>
               `
             }
 
-            <button class="bg-gradient-to-r from-[#FFCC70] to-[#D4581C] 
-              text-[#1C110C] font-semibold 
-              px-4 py-2 rounded-full text-sm
-              hover:scale-105 transition">
-              Try This Haandi
-            </button>
+            <!-- SIZE -->
+            <div class="space-y-2">
+              <p class="text-[10px] text-cream/50 tracking-wide">CHOOSE SIZE</p>
+              <div class="flex justify-center gap-2 flex-wrap">
+                <button class="option-btn active-btn">Safar · 1</button>
+                <button class="option-btn">Mehfil · 2</button>
+                <button class="option-btn">Dawaat · 3</button>
+              </div>
+            </div>
+
+            ${
+              item.category !== "Haandi Biryani"
+                ? `
+                <button class="bg-gradient-to-r from-[#FFCC70] to-[#D4581C] 
+                  text-[#1C110C] font-semibold 
+                  px-4 py-2 rounded-full text-sm
+                  hover:scale-105 transition">
+                  Try This Haandi
+                </button>
+              `
+                : ``
+            }
 
           </div>
 
@@ -899,7 +910,6 @@ function renderMenu() {
     `;
   });
 }
-
 function filterType(type) {
   currentType = type;
 
