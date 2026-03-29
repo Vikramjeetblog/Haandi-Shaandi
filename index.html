@@ -480,45 +480,50 @@
     </section>
 
     <!-- MAP -->
-    <section class="py-24 bg-dark text-cream overflow-hidden relative">
+   <section class="py-24 relative overflow-hidden text-cream">
+
+  <!-- 🔥 PREMIUM BACKGROUND -->
+  <div class="absolute inset-0 
+    bg-gradient-to-br 
+    from-[#1c110c] 
+    via-[#2A1B14] 
+    to-[#3a1f14]">
+  </div>
+
+  <!-- 🔥 ORANGE GLOW -->
+  <div class="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] 
+    bg-[#D4581C] opacity-20 blur-[120px] rounded-full"></div>
+
+  <div class="absolute bottom-[-100px] right-[-100px] w-[300px] h-[300px] 
+    bg-[#B83A0D] opacity-20 blur-[120px] rounded-full"></div>
 
   <div class="max-w-7xl mx-auto px-6 relative z-10">
 
     <!-- HEADER -->
-    <div class="text-center max-w-3xl mx-auto mb-16 reveal-up">
+    <div class="text-center max-w-3xl mx-auto mb-16">
       
-      <h2 class="font-heading text-4xl md:text-5xl font-bold text-orange mb-4">
-        Biriyani & BBQ’s across Bharat
+      <h2 class="font-heading text-4xl md:text-5xl font-bold mb-4">
+        <span class="bg-gradient-to-r from-[#ffcc70] to-[#D4581C] bg-clip-text text-transparent">
+          Biriyani & BBQ’s across Bharat
+        </span>
       </h2>
 
-      <p class="text-lg text-cream/80 leading-relaxed mb-3">
+      <p class="text-lg text-cream/70 mb-3">
         From royal kitchens to street-side legends — every region of India has its own biryani story.
       </p>
 
-      <!-- 🔥 NEW: USER HINT -->
-      <p class="text-sm text-orange/80 font-medium animate-pulse">
+      <p class="text-sm text-[#ffcc70] font-medium animate-pulse">
         Tap any region to explore →
       </p>
 
     </div>
 
     <!-- GRID -->
-    <div 
-      id="regions-grid"
-      class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto"
-    ></div>
+    <div id="regions-grid"
+      class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-8 max-w-5xl mx-auto">
+    </div>
 
   </div>
-
-  <!-- BACKGROUND GRID -->
-  <svg class="absolute inset-0 w-full h-full opacity-5 pointer-events-none"
-       xmlns="http://www.w3.org/2000/svg">
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"/>
-    </pattern>
-    <rect width="100%" height="100%" fill="url(#grid)" />
-  </svg>
-
 </section>
     <!-- SERVING SIZES (With uploaded mitti haandi images & hot smoke) 
     <section class="py-24 bg-cream">
@@ -1445,25 +1450,28 @@ swiper = new Swiper(".mySwiper", {
 
    regionsGrid.innerHTML += `
 <div onclick="handleStateClick('${region}')"
-     class="region-card cursor-pointer group 
-     bg-cream/5 border border-orange/30 rounded-xl p-6 text-center
-     hover:bg-orange/10 hover:scale-105 hover:shadow-xl
-     active:scale-95 transition-all duration-300">
+     class="group cursor-pointer p-[1px] rounded-xl 
+     bg-gradient-to-br from-[#D4581C] to-[#B83A0D]">
+
+  <!-- INNER CARD -->
+  <div class="rounded-xl bg-[#2A1B14]/80 backdrop-blur-md
+       p-6 text-center transition-all duration-300
+       hover:scale-105 hover:bg-[#2A1B14] hover:shadow-[0_0_30px_rgba(212,88,28,0.3)]">
 
     <i data-lucide="map-pin"
-       class="mx-auto text-orange mb-3 w-7 h-7 
+       class="mx-auto text-[#ffcc70] mb-3 w-7 h-7 
        group-hover:scale-110 transition"></i>
 
-    <h3 class="font-heading text-xl font-semibold text-cream">
+    <h3 class="font-heading text-lg font-semibold text-cream">
         ${region}
     </h3>
 
- 
-    <p class="text-xs text-orange mt-2 opacity-70 
+    <p class="text-xs text-[#ffcc70]/80 mt-2 
        group-hover:opacity-100 transition">
         Explore →
     </p>
 
+  </div>
 </div>
 `;
 });
