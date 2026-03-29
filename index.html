@@ -133,6 +133,13 @@
     border: 1px solid rgba(255,255,255,0.15);
     transition: all 0.3s ease;
 }
+#regions-grid::-webkit-scrollbar {
+  display: none;
+}
+#regions-grid {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
 .option-btn:hover {
     background: #D4581C;
@@ -476,7 +483,8 @@
 </p>
                 <p class="text-lg text-cream/80 leading-relaxed">From royal kitchens to street-side legends — every region of India has its own biryani story. Haandi Shaandi brings these diverse, authentic flavors together under one roof.</p>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto" id="regions-grid"></div>
+            <div class="flex gap-4 overflow-x-auto px-2 pb-4 
+snap-x snap-mandatory scroll-smooth" id="regions-grid"></div>
         </div>
         <svg class="absolute inset-0 w-full h-full opacity-5 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"/></pattern>
@@ -751,7 +759,10 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-
+setTimeout(() => {
+  const el = document.getElementById("regions-grid");
+  el.scrollLeft = 100;
+}, 1000);
 
 function goToSection(sectionId){
     closeModal();
@@ -1402,16 +1413,30 @@ swiper = new Swiper(".mySwiper", {
         const regionsGrid = document.getElementById('regions-grid');
         regions.forEach((region, index) => {
             const delay = `delay-${(index % 4) * 100}`;
-           regionsGrid.innerHTML += `
+          regionsGrid.innerHTML += `
 <div onclick="handleStateClick('${region}')"
-     class="reveal-up ${delay} bg-cream/5 border border-orange/30 rounded-xl p-6 text-center hover:bg-orange/10 transition-colors cursor-pointer group">
+class="region-card flex-shrink-0 w-[160px] md:w-[200px] 
+snap-center cursor-pointer group
+
+bg-cream/5 border border-orange/30 
+rounded-xl p-5 text-center
+
+transition-all duration-300
+hover:bg-orange/20 hover:scale-105
+active:scale-95">
 
     <i data-lucide="map-pin"
-       class="mx-auto text-orange mb-3 group-hover:scale-110 transition-transform w-7 h-7"></i>
+       class="mx-auto text-orange mb-3 w-7 h-7 
+       group-hover:scale-125 transition"></i>
 
-    <h3 class="font-heading text-xl font-semibold text-cream">
+    <h3 class="font-heading text-lg text-cream">
         ${region}
     </h3>
+
+    <!-- 👇 CTA -->
+    <p class="text-[11px] text-orange mt-2 font-semibold">
+        Tap →
+    </p>
 
 </div>`;
                
