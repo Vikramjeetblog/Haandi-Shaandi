@@ -641,7 +641,24 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
 
   <div>
     <label class="block text-sm font-medium text-dark mb-2">Which biryani are you most excited for?<span style="color: red;">*</span></label>
-    <select id="biryani-select" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-terracotta transition-all text-dark">
+ <select id="veg-biryani" 
+    class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:ring-2 focus:ring-terracotta text-dark">
+    
+    <option value="">Select Veg Biryani</option>
+  </select>
+</div>
+
+<!-- NON VEG BIRYANI -->
+<div>
+  <label class="block text-sm font-medium text-dark mb-2">
+    Non-Veg Biryani <span style="color:red">*</span>
+  </label>
+
+  <select id="nonveg-biryani" 
+    class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:ring-2 focus:ring-terracotta text-dark">
+    
+    <option value="">Select Non-Veg Biryani</option>
+  </select>
         
     </select>
 </div>
@@ -650,14 +667,7 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
     Choose Protein <span style="color:red">*</span>
   </label>
 
-  <select id="protein-select" required
-    class="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-terracotta text-dark">
-    
-    <option value="">Select Protein</option>
-    <option value="Chicken">Chicken</option>
-    <option value="Mutton">Mutton</option>
-
-  </select>
+  
 </div>
 
 <div>
@@ -808,6 +818,31 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+
+function loadBiryaniDropdowns() {
+  const vegSelect = document.getElementById("veg-biryani");
+  const nonVegSelect = document.getElementById("nonveg-biryani");
+
+  vegSelect.innerHTML = `<option value="">Select Veg Biryani</option>`;
+  nonVegSelect.innerHTML = `<option value="">Select Non-Veg Biryani</option>`;
+
+  menuData.forEach(item => {
+    if (item.category === "Haandi Biryani") {
+
+      const option = `<option value="${item.name}">${item.name}</option>`;
+
+      if (item.type === "veg") {
+        vegSelect.innerHTML += option;
+      } else {
+        nonVegSelect.innerHTML += option;
+      }
+    }
+  });
+}
+window.onload = function () {
+  renderMenu();
+  loadBiryaniDropdowns(); // 👈 important
+};
 let sliders = [];
 
 function renderMenu() {
@@ -2100,7 +2135,6 @@ form.addEventListener('submit', async function(e) {
                 phone,
                 whatsapp,
                 biryani,
-                protein,
                 size
             })
         });
