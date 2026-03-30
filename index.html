@@ -581,12 +581,12 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
 
     <button onclick="filterType('veg')" id="filter-veg"
       class="filter-btn px-5 py-2 rounded-full text-sm font-semibold text-dark hover:bg-green-100">
-      Veg 🌱
+      Veg 
     </button>
 
     <button onclick="filterType('nonveg')" id="filter-nonveg"
       class="filter-btn px-5 py-2 rounded-full text-sm font-semibold text-dark hover:bg-red-100">
-      Non-Veg 🍗
+      Non-Veg 
     </button>
 
   </div>
@@ -1866,7 +1866,7 @@ refreshIcons();
                 menuGrid.innerHTML = '';
                menuData
   .filter(item => item.category === category)
-  .sort((a, b) => (b.special === true) - (a.special === true)) // ⭐ SPECIAL FIRST
+  .sort((a, b) => (b.special === true) - (a.special === true)) //  SPECIAL FIRST
   .forEach(item => {
 
 
@@ -1978,7 +1978,7 @@ menuGrid.innerHTML += `
                 ? `
                 <div class="text-center mb-4">
                     <span class="bg-orange/20 text-orange px-3 py-1 rounded-full text-xs font-semibold">
-                        ⭐ Special
+                         Special
                     </span>
                 </div>
                 `
@@ -1990,7 +1990,7 @@ menuGrid.innerHTML += `
                 ? `
                 <div class="text-center mb-4">
                     <span class="bg-green-600/20 text-green-400 px-3 py-1 rounded-full text-xs font-semibold">
-                        🌿 Pure Veg
+                         Pure Veg
                     </span>
                 </div>
                 `
@@ -2402,7 +2402,7 @@ phoneInputs.forEach(input => {
             shadow-[0_10px_40px_rgba(0,0,0,0.25)]">
 
   <!-- QUOTE ICON -->
-  <div class="text-orange text-xl mb-3">❝</div>
+  <div class="text-orange text-xl mb-3"></div>
 
   <!-- DESCRIPTION -->
   <p id="modal-desc"
@@ -2413,12 +2413,12 @@ phoneInputs.forEach(input => {
 
   <button  id="listen-btn" onclick="startAI()" id="voice-play"
     class="bg-orange text-white px-4 py-2 rounded-full text-sm ">
-    🔊 Listen
+     Listen
   </button>
 
   <button  onclick="stopVoice()" id="stop-btn"
     class="bg-dark text-white px-4 py-2 rounded-full text-sm">
-    ⏹ Stop
+     Stop
   </button>
 
 </div>
