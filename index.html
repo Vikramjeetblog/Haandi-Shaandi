@@ -2148,7 +2148,7 @@ form.addEventListener('submit', async function(e) {
     const size = document.getElementById("size-select").value;
 
     try {
-        await fetch("https://script.google.com/macros/s/AKfycbwfWT9yd7CGyIpN1KAcWVWiB_4q6p1HdD2UJLSLxnJjeLFym9Lyf4g5CiEJ1ARQmseq/exec", {
+        await fetch("https://script.google.com/macros/s/AKfycbz40PV0SkPBfECNDpsLeuov1xqAiA_rA3_u2KYSMMGsC7b-pXX_d0vW81r7v88vwFi1/exec", {
             method: "POST",
             mode: "no-cors",
             headers: {
@@ -2158,7 +2158,8 @@ form.addEventListener('submit', async function(e) {
                 name,
                 phone,
                 whatsapp,
-                biryani,
+                veg,
+                nonveg,
                 size
             })
         });
