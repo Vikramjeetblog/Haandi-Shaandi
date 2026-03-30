@@ -906,13 +906,29 @@ function renderMenu() {
 
   const images = Array.isArray(item.image) ? item.image : [item.image];
 
+  console.log("🎞 Slider check:", item.name, images);
+
   let i = 0;
   const imgEl = document.getElementById(`img-${index}`);
 
-  if (!imgEl || images.length <= 1) return;
+  // ❌ DEBUG: element missing
+  if (!imgEl) {
+    console.error("❌ img element NOT found:", `img-${index}`);
+    return;
+  }
+
+  // ⚠️ DEBUG: only 1 image
+  if (images.length <= 1) {
+    console.warn("⚠️ Only one image, slider skipped:", item.name);
+    return;
+  }
+
+  console.log("✅ Slider starting for:", item.name);
 
   const interval = setInterval(() => {
     i = (i + 1) % images.length;
+
+    console.log("🔄 Changing:", item.name, "→", images[i]);
 
     imgEl.style.opacity = 0;
 
@@ -925,7 +941,12 @@ function renderMenu() {
 
   sliders.push(interval);
 
-  imgEl.addEventListener("mouseenter", () => clearInterval(interval));
+  console.log("📦 sliders array:", sliders.length);
+
+  imgEl.addEventListener("mouseenter", () => {
+    console.log("⏸ Slider paused:", item.name);
+    clearInterval(interval);
+  });
 
 });
 }
