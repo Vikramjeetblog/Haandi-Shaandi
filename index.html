@@ -839,8 +839,11 @@ document.getElementById("waitlist-form").addEventListener("submit", function(e) 
   const phone = document.getElementById("phone-input").value;
 const whatsapp = document.getElementById("phone-input").value;
     
-  const veg = document.getElementById("veg-biryani").value;
-  const nonveg = document.getElementById("nonveg-biryani").value;
+const vegSelect = document.getElementById("veg-biryani");
+const nonVegSelect = document.getElementById("nonveg-biryani");
+
+const veg = vegSelect.value;
+const nonveg = nonVegSelect.value;
   const size = document.getElementById("size-select").value;
 
  if (!veg && !nonveg) {
