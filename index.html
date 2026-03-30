@@ -808,12 +808,12 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-let sliders = []; //  store intervals
+let sliders = [];
 
 function renderMenu() {
   const grid = document.getElementById("menu-grid");
 
-  //  clear old sliders (IMPORTANT)
+  // clear old sliders
   sliders.forEach(id => clearInterval(id));
   sliders = [];
 
@@ -826,15 +826,20 @@ function renderMenu() {
 
   grid.innerHTML = "";
 
-  filtered.forEach((item, index) => {
+  filtered.forEach((item) => {
+
+    const images = Array.isArray(item.image) ? item.image : [item.image];
+
+    
+    const safeId = item.name.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
 
     grid.innerHTML += `
       <div class="bg-[#2A1B14] rounded-2xl overflow-hidden shadow-lg">
 
-        <!-- IMAGE SLIDER -->
+        <!-- IMAGE -->
         <div class="relative overflow-hidden">
-          <img id="img-${index}" 
-               src="${Array.isArray(item.image) ? item.image[0] : item.image}" 
+          <img id="img-${safeId}" 
+               src="${images[0]}" 
                class="slider-img w-full h-52 object-cover"/>
 
           <span class="absolute top-3 left-3 text-xs px-2 py-1 rounded-full ${
@@ -842,7 +847,7 @@ function renderMenu() {
               ? 'bg-green-500' 
               : 'bg-gradient-to-r from-red-600 to-orange-500 shadow-md'
           } text-white">
-            ${item.type === 'veg' ? '🌱 Veg' : '🍗 Non-Veg'}
+            ${item.type === 'veg' ? ' Veg' : ' Non-Veg'}
           </span>
         </div>
 
@@ -901,55 +906,56 @@ function renderMenu() {
     `;
   });
 
-  //  AUTO SLIDER START
- filtered.forEach((item, index) => {
+  //  SLIDER LOGIC 
+  filtered.forEach((item) => {
 
-  const images = Array.isArray(item.image) ? item.image : [item.image];
+    const images = Array.isArray(item.image) ? item.image : [item.image];
+    if (images.length < 2) return;
 
-  console.log("🎞 Slider check:", item.name, images);
+    const safeId = item.name.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+    const imgEl = document.getElementById(`img-${safeId}`);
+    if (!imgEl) return;
 
-  let i = 0;
-  const imgEl = document.getElementById(`img-${index}`);
+    let i = 0;
 
-  // ❌ DEBUG: element missing
-  if (!imgEl) {
-    console.error("❌ img element NOT found:", `img-${index}`);
-    return;
-  }
+    const interval = setInterval(() => {
+      i = (i + 1) % images.length;
 
-  // ⚠️ DEBUG: only 1 image
-  if (images.length <= 1) {
-    console.warn("⚠️ Only one image, slider skipped:", item.name);
-    return;
-  }
+      imgEl.style.opacity = 0;
 
-  console.log("✅ Slider starting for:", item.name);
+      setTimeout(() => {
+        imgEl.src = images[i];
+        imgEl.style.opacity = 1;
+      }, 200);
 
-  const interval = setInterval(() => {
-    i = (i + 1) % images.length;
+    }, 2500);
 
-    console.log("🔄 Changing:", item.name, "→", images[i]);
+    sliders.push(interval);
 
-    imgEl.style.opacity = 0;
+    
+    imgEl.onmouseenter = () => clearInterval(interval);
 
-    setTimeout(() => {
-      imgEl.src = images[i];
-      imgEl.style.opacity = 1;
-    }, 200);
+    imgEl.onmouseleave = () => {
+      let newInterval = setInterval(() => {
+        i = (i + 1) % images.length;
 
-  }, 2500);
+        imgEl.style.opacity = 0;
 
-  sliders.push(interval);
+        setTimeout(() => {
+          imgEl.src = images[i];
+          imgEl.style.opacity = 1;
+        }, 200);
 
-  console.log("📦 sliders array:", sliders.length);
+      }, 2500);
 
-  imgEl.addEventListener("mouseenter", () => {
-    console.log("⏸ Slider paused:", item.name);
-    clearInterval(interval);
+      sliders.push(newInterval);
+    };
+
   });
-
-});
 }
+
+
+
 let currentType = "all";
 
 let currentCategory = "Haandi Biryani";
