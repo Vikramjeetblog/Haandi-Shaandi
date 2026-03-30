@@ -912,35 +912,33 @@ function renderMenu() {
   });
 
   //  AUTO SLIDER START
-  setTimeout(() => {
-    filtered.forEach((item, index) => {
+  requestAnimationFrame(() => {
+  filtered.forEach((item, index) => {
 
-      if (!Array.isArray(item.image)) return;
+    if (!Array.isArray(item.image)) return;
 
-      let i = 0;
-      const imgEl = document.getElementById(`img-${index}`);
+    let i = 0;
+    const imgEl = document.getElementById(`img-${index}`);
 
-      const interval = setInterval(() => {
-        i = (i + 1) % item.image.length;
+    if (!imgEl) return; 
 
-        //  smooth fade
-        imgEl.style.opacity = 0;
+    const interval = setInterval(() => {
+      i = (i + 1) % item.image.length;
 
-        setTimeout(() => {
-          imgEl.src = item.image[i];
-          imgEl.style.opacity = 1;
-        }, 200);
+      imgEl.style.opacity = 0;
 
-      }, 2500);
+      setTimeout(() => {
+        imgEl.src = item.image[i];
+        imgEl.style.opacity = 1;
+      }, 200);
 
-      sliders.push(interval); // store
+    }, 2500);
 
-      // hover pause 
-      imgEl.addEventListener("mouseenter", () => clearInterval(interval));
+    sliders.push(interval);
 
-    });
-  }, 100);
-}
+    imgEl.addEventListener("mouseenter", () => clearInterval(interval));
+  });
+});
 let currentType = "all";
 
 let currentCategory = "Haandi Biryani";
