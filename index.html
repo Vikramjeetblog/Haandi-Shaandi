@@ -843,10 +843,13 @@ const whatsapp = document.getElementById("phone-input").value;
   const nonveg = document.getElementById("nonveg-biryani").value;
   const size = document.getElementById("size-select").value;
 
-  if (!veg && !nonveg) {
-    alert("Please select at least one biryani (Veg or Non-Veg)");
-    return;
-  }
+ if (!veg && !nonveg) {
+  vegSelect.style.border = "2px solid red";
+  nonVegSelect.style.border = "2px solid red";
+} else {
+  vegSelect.style.border = "";
+  nonVegSelect.style.border = "";
+}
 
   if (!size) {
     alert("Please select size");
