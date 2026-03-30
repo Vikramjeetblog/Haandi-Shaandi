@@ -1867,8 +1867,9 @@ menuGrid.innerHTML += `
           : ''
         }
 
-        <img src="${item.image}" 
-             class="w-full h-full object-cover"/>
+        <img src="${Array.isArray(item.image) ? item.image[0] : item.image}" 
+     onerror="this.src='https://placehold.co/600x400?text=Food'"
+     class="w-full h-full object-cover"/>
 
         <!-- TITLE OVER IMAGE -->
         <h3 class="absolute bottom-3 left-5 right-5 text-white font-heading text-lg font-bold">
