@@ -515,12 +515,18 @@ document.getElementById("waitlist-form").addEventListener("submit", function(e) 
   }
 
 
-  if (vegSelect.selectedIndex === 0 && nonVegSelect.selectedIndex === 0) {
-    vegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
-    nonVegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
+const veg = vegSelect.value.trim();
+const nonveg = nonVegSelect.value.trim();
 
-    if (!firstErrorEl) firstErrorEl = vegSelect;
-    isValid = false;
+if (veg === "" && nonveg === "") {
+  vegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
+  nonVegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
+
+  if (!firstErrorEl) firstErrorEl = vegSelect;
+  isValid = false;
+}
+
+  
   }
 
   // SIZE
