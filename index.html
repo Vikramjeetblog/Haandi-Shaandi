@@ -1888,10 +1888,7 @@ refreshIcons();
 });
    refreshIcons();
 
-        const biryaniSelect = document.getElementById('biryani-select');
-        menuData.filter(item => item.category !== 'Curries').forEach(item => {
-            biryaniSelect.innerHTML += `<option value="${item.name}">${item.name}</option>`;
-        });
+      
 
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
