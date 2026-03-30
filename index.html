@@ -934,14 +934,10 @@ function renderMenu() {
   }, 2500);
 
   sliders.push(interval);
+
+  imgEl.addEventListener("mouseenter", () => clearInterval(interval));
+
 });
-
-    sliders.push(interval);
-
-    imgEl.addEventListener("mouseenter", () => clearInterval(interval));
-  });
-}); 
-}
 let currentType = "all";
 
 let currentCategory = "Haandi Biryani";
