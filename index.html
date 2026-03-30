@@ -833,26 +833,31 @@ function loadBiryaniDropdowns() {
   });
 }
 document.getElementById("waitlist-form").addEventListener("submit", function(e) {
-  e.preventDefault(); // IMPORTANT
+  e.preventDefault();
 
   const name = document.getElementById("name-input").value;
   const phone = document.getElementById("phone-input").value;
-const whatsapp = document.getElementById("phone-input").value;
-    
-const vegSelect = document.getElementById("veg-biryani");
-const nonVegSelect = document.getElementById("nonveg-biryani");
+  const whatsapp = document.getElementById("phone-input").value;
 
-const veg = vegSelect.value;
-const nonveg = nonVegSelect.value;
+  const vegSelect = document.getElementById("veg-biryani");
+  const nonVegSelect = document.getElementById("nonveg-biryani");
+
+  const veg = vegSelect.value;
+  const nonveg = nonVegSelect.value;
+
   const size = document.getElementById("size-select").value;
 
- if (!veg && !nonveg) {
-  vegSelect.style.border = "2px solid red";
-  nonVegSelect.style.border = "2px solid red";
-} else {
-  vegSelect.style.border = "";
-  nonVegSelect.style.border = "";
-}
+
+  if (!veg && !nonveg) {
+    vegSelect.style.border = "2px solid red";
+    nonVegSelect.style.border = "2px solid red";
+
+    alert("Please select at least one Biryani (Veg or Non-Veg)");
+    return; 
+  } else {
+    vegSelect.style.border = "";
+    nonVegSelect.style.border = "";
+  }
 
   if (!size) {
     alert("Please select size");
@@ -867,7 +872,7 @@ const nonveg = nonVegSelect.value;
     size
   });
 
-  // UI SUCCESS SWITCH
+  // SUCCESS UI
   document.getElementById("waitlist-form").style.display = "none";
   document.getElementById("success-message").classList.remove("hidden");
 });
