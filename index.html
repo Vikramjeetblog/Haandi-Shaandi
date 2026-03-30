@@ -952,6 +952,7 @@ filtered.forEach((item) => {
   imgEl.onmouseleave = startSlider;
 
 });
+refreshIcons();
 }
 
 let currentType = "all";
@@ -969,6 +970,7 @@ function filterMenu(category) {
     .classList.add("bg-terracotta", "text-cream", "scale-105");
 
   renderMenu();
+refreshIcons();
 }
 
 
@@ -983,7 +985,8 @@ function filterType(type) {
   document.getElementById(`filter-${type}`)
     .classList.add("bg-terracotta", "text-white");
 
-  renderMenu(); 
+  renderMenu();
+refreshIcons();
 }
 let currentOpenState = null;
 let hoverTimeout;
@@ -1722,6 +1725,7 @@ swiper = new Swiper(".mySwiper", {
 
 ];
 renderMenu();
+refreshIcons();
 
 
 
