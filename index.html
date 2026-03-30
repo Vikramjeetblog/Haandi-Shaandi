@@ -492,49 +492,55 @@ document.getElementById("waitlist-form").addEventListener("submit", function(e) 
   const nonVegSelect = document.getElementById("nonveg-biryani");
   const sizeSelect = document.getElementById("size-select");
 
-  const veg = vegSelect.value;
-  const nonveg = nonVegSelect.value;
-
   let isValid = true;
+  let firstErrorEl = null; 
 
-
+  // reset
   [nameInput, phoneInput, vegSelect, nonVegSelect, sizeSelect].forEach(el => {
     el.classList.remove("border-red-500", "ring-2", "ring-red-400");
   });
 
-
+  // NAME
   if (!nameInput.value.trim()) {
     nameInput.classList.add("border-red-500", "ring-2", "ring-red-400");
+    if (!firstErrorEl) firstErrorEl = nameInput;
     isValid = false;
   }
 
+  // PHONE
   if (!phoneInput.value.trim()) {
     phoneInput.classList.add("border-red-500", "ring-2", "ring-red-400");
+    if (!firstErrorEl) firstErrorEl = phoneInput;
     isValid = false;
   }
 
 
- if (vegSelect.selectedIndex === 0 && nonVegSelect.selectedIndex === 0) {
-  vegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
-  nonVegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
+  if (vegSelect.selectedIndex === 0 && nonVegSelect.selectedIndex === 0) {
+    vegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
+    nonVegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
 
-  if (!firstErrorEl) firstErrorEl = vegSelect;
-  isValid = false;
-}
+    if (!firstErrorEl) firstErrorEl = vegSelect;
+    isValid = false;
+  }
 
- 
+  // SIZE
   if (!sizeSelect.value) {
     sizeSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
+    if (!firstErrorEl) firstErrorEl = sizeSelect;
     isValid = false;
   }
-  if (!isValid) return;
+
+
+  if (!isValid) {
+    firstErrorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    firstErrorEl.focus();
+    return;
+  }
+
+  //  SUCCESS
   document.getElementById("waitlist-form").style.display = "none";
   document.getElementById("success-message").classList.remove("hidden");
 });
-window.onload = function () {
-  renderMenu();
-  loadBiryaniDropdowns();
-};
 let sliders = [];
 
 function renderMenu() {
