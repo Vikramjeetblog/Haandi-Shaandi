@@ -662,13 +662,7 @@ class="menu-tab px-6 md:px-8 py-3 rounded-full font-heading text-lg font-semibol
         
    
 </div>
-<div>
-  <label class="block text-sm font-medium text-dark mb-2">
-    Choose Protein <span style="color:red">*</span>
-  </label>
 
-  
-</div>
 
 <div>
   <label class="block text-sm font-medium text-dark mb-2">
@@ -839,13 +833,37 @@ function loadBiryaniDropdowns() {
   });
 }
 document.getElementById("waitlist-form").addEventListener("submit", function(e) {
+  e.preventDefault(); // IMPORTANT
+
+  const name = document.getElementById("name-input").value;
+  const phone = document.getElementById("phone-input").value;
+const whatsapp = document.getElementById("phone-input").value;
+    
   const veg = document.getElementById("veg-biryani").value;
   const nonveg = document.getElementById("nonveg-biryani").value;
+  const size = document.getElementById("size-select").value;
 
   if (!veg && !nonveg) {
-    e.preventDefault();
     alert("Please select at least one biryani (Veg or Non-Veg)");
+    return;
   }
+
+  if (!size) {
+    alert("Please select size");
+    return;
+  }
+
+  console.log({
+    name,
+    phone,
+    veg,
+    nonveg,
+    size
+  });
+
+  // UI SUCCESS SWITCH
+  document.getElementById("waitlist-form").style.display = "none";
+  document.getElementById("success-message").classList.remove("hidden");
 });
 window.onload = function () {
   renderMenu();
@@ -2124,8 +2142,9 @@ form.addEventListener('submit', async function(e) {
     const name = this.querySelector('input[type="text"]').value;
     const phone = this.querySelectorAll('input[type="tel"]')[0].value;
     const whatsapp = this.querySelectorAll('input[type="tel"]')[1].value;
-    const biryani = document.getElementById('biryani-select').value;
-    const protein = document.getElementById("protein-select").value;
+   
+    const veg = document.getElementById("veg-biryani").value;
+   const nonveg = document.getElementById("nonveg-biryani").value;
     const size = document.getElementById("size-select").value;
 
     try {
