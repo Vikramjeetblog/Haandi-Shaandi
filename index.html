@@ -906,19 +906,25 @@ function renderMenu() {
     `;
   });
 
-  //  SLIDER LOGIC 
-  filtered.forEach((item) => {
+  
+ 
+//  SLIDER LOGIC 
+filtered.forEach((item) => {
 
-    const images = Array.isArray(item.image) ? item.image : [item.image];
-    if (images.length < 2) return;
+  const images = Array.isArray(item.image) ? item.image : [item.image];
+  if (images.length < 2) return;
 
-    const safeId = item.name.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-    const imgEl = document.getElementById(`img-${safeId}`);
-    if (!imgEl) return;
+  const safeId = item.name.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+  const imgEl = document.getElementById(`img-${safeId}`);
+  if (!imgEl) return;
 
-    let i = 0;
+  let i = 0;
+  let interval = null;
 
-    const interval = setInterval(() => {
+  function startSlider() {
+    if (interval) return; 
+
+    interval = setInterval(() => {
       i = (i + 1) % images.length;
 
       imgEl.style.opacity = 0;
@@ -929,32 +935,23 @@ function renderMenu() {
       }, 200);
 
     }, 2500);
+  }
 
-    sliders.push(interval);
+  function stopSlider() {
+    if (interval) {
+      clearInterval(interval);
+      interval = null; 
+    }
+  }
 
-    
-    imgEl.onmouseenter = () => clearInterval(interval);
+  // start once
+  startSlider();
 
-    imgEl.onmouseleave = () => {
-      let newInterval = setInterval(() => {
-        i = (i + 1) % images.length;
+  // hover controls
+  imgEl.onmouseenter = stopSlider;
+  imgEl.onmouseleave = startSlider;
 
-        imgEl.style.opacity = 0;
-
-        setTimeout(() => {
-          imgEl.src = images[i];
-          imgEl.style.opacity = 1;
-        }, 200);
-
-      }, 2500);
-
-      sliders.push(newInterval);
-    };
-
-  });
-}
-
-
+});
 
 let currentType = "all";
 
