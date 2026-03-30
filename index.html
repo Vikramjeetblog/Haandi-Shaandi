@@ -912,27 +912,29 @@ function renderMenu() {
   });
 
   //  AUTO SLIDER START
-  requestAnimationFrame(() => {
-  filtered.forEach((item, index) => {
+ filtered.forEach((item, index) => {
 
-    if (!Array.isArray(item.image)) return;
+  const images = Array.isArray(item.image) ? item.image : [item.image];
 
-    let i = 0;
-    const imgEl = document.getElementById(`img-${index}`);
+  let i = 0;
+  const imgEl = document.getElementById(`img-${index}`);
 
-    if (!imgEl) return; 
+  if (!imgEl || images.length <= 1) return;
 
-    const interval = setInterval(() => {
-      i = (i + 1) % item.image.length;
+  const interval = setInterval(() => {
+    i = (i + 1) % images.length;
 
-      imgEl.style.opacity = 0;
+    imgEl.style.opacity = 0;
 
-      setTimeout(() => {
-        imgEl.src = item.image[i];
-        imgEl.style.opacity = 1;
-      }, 200);
+    setTimeout(() => {
+      imgEl.src = images[i];
+      imgEl.style.opacity = 1;
+    }, 200);
 
-    }, 2500);
+  }, 2500);
+
+  sliders.push(interval);
+});
 
     sliders.push(interval);
 
