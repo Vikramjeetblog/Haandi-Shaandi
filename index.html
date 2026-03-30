@@ -835,44 +835,46 @@ function loadBiryaniDropdowns() {
 document.getElementById("waitlist-form").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const name = document.getElementById("name-input").value;
-  const phone = document.getElementById("phone-input").value;
-  const whatsapp = document.getElementById("phone-input").value;
-
+  const nameInput = document.getElementById("name-input");
+  const phoneInput = document.getElementById("phone-input");
   const vegSelect = document.getElementById("veg-biryani");
   const nonVegSelect = document.getElementById("nonveg-biryani");
+  const sizeSelect = document.getElementById("size-select");
 
   const veg = vegSelect.value;
   const nonveg = nonVegSelect.value;
 
-  const size = document.getElementById("size-select").value;
+  let isValid = true;
+
+
+  [nameInput, phoneInput, vegSelect, nonVegSelect, sizeSelect].forEach(el => {
+    el.classList.remove("border-red-500", "ring-2", "ring-red-400");
+  });
+
+
+  if (!nameInput.value.trim()) {
+    nameInput.classList.add("border-red-500", "ring-2", "ring-red-400");
+    isValid = false;
+  }
+
+  if (!phoneInput.value.trim()) {
+    phoneInput.classList.add("border-red-500", "ring-2", "ring-red-400");
+    isValid = false;
+  }
 
 
   if (!veg && !nonveg) {
-    vegSelect.style.border = "2px solid red";
-    nonVegSelect.style.border = "2px solid red";
-
-    alert("Please select at least one Biryani (Veg or Non-Veg)");
-    return; 
-  } else {
-    vegSelect.style.border = "";
-    nonVegSelect.style.border = "";
+    vegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
+    nonVegSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
+    isValid = false;
   }
 
-  if (!size) {
-    alert("Please select size");
-    return;
+ 
+  if (!sizeSelect.value) {
+    sizeSelect.classList.add("border-red-500", "ring-2", "ring-red-400");
+    isValid = false;
   }
-
-  console.log({
-    name,
-    phone,
-    veg,
-    nonveg,
-    size
-  });
-
-  // SUCCESS UI
+  if (!isValid) return;
   document.getElementById("waitlist-form").style.display = "none";
   document.getElementById("success-message").classList.remove("hidden");
 });
