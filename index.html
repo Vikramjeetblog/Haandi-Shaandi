@@ -938,7 +938,7 @@ function renderMenu() {
 
     imgEl.addEventListener("mouseenter", () => clearInterval(interval));
   });
-});
+
 let currentType = "all";
 
 let currentCategory = "Haandi Biryani";
@@ -981,7 +981,7 @@ function openStateHover(state) {
 
     currentOpenState = state;
     handleStateClick(state);
-  }, 250); // 👈 perfect delay
+  }, 250); // delay
 }
 
 function closeModal() {
